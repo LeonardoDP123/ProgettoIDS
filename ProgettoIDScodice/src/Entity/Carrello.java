@@ -1,7 +1,14 @@
+package Entity;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+
 public class Carrello {
 
 	private int ID;
-	private date dataOrdine;
+	private Date dataOrdine;
 	private List<Date> storicoOrdini;
 	private boolean stato;
 	private double totale;

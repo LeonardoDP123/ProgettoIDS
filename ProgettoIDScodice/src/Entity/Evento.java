@@ -1,3 +1,5 @@
+package Entity;
+
 public abstract class Evento {
 
 	private int ID;

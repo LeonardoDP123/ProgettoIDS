@@ -1,11 +1,17 @@
-public abstract class Venditore {
+package Entity;
+
+import Util.Enum.ruolo;
+
+import java.util.Date;
+
+public abstract class Venditore extends User {
 
 	private int ID;
-	private String nome;
 	private String ragioneSociale;
-	private String email;
-	private String indirizzo;
-	private String telefono;
+
+	public Venditore(String username, String nome, String cognome, Date dataNascita, String numeroTelefono, ruolo role, String indirizzo) {
+		super(username, nome, cognome, dataNascita, numeroTelefono, role, indirizzo);
+	}
 
 	public void visualizzaInfoVenditore() {
 		// TODO - implement Venditore.visualizzaInfoVenditore
@@ -17,7 +23,8 @@ public abstract class Venditore {
 	 * @param attributo
 	 * @param nuovoValore
 	 */
-	public void aggiornaInfoVenditore(string attributo, Object nuovoValore) {
+
+	public void aggiornaInfoVenditore(String attributo, Object nuovoValore) {
 		// TODO - implement Venditore.aggiornaInfoVenditore
 		throw new UnsupportedOperationException();
 	}

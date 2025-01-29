@@ -1,3 +1,5 @@
+package Entity;
+
 public class DistributoreTipicita extends Venditore {
 
 	private int ID;
@@ -40,26 +42,6 @@ public class DistributoreTipicita extends Venditore {
 	 */
 	public void rimuoviPacchetto(Pacchetto pacchetto) {
 		// TODO - implement DistributoreTipicita.rimuoviPacchetto
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param pacchetto
-	 * @param prodotto
-	 */
-	public void aggiungiProdotto(Pacchetto pacchetto, Prodotto prodotto) {
-		// TODO - implement DistributoreTipicita.aggiungiProdotto
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param pacchetto
-	 * @param prodotto
-	 */
-	public void rimuoviProdotto(Pacchetto pacchetto, Prodotto prodotto) {
-		// TODO - implement DistributoreTipicita.rimuoviProdotto
 		throw new UnsupportedOperationException();
 	}
 

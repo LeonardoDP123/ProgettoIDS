@@ -1,10 +1,16 @@
+package Entity;
+
+import Util.Enum.ruolo;
+
+import java.util.Date;
+
 public class Acquirente extends UtenteGenerico {
 
 	private int ID;
-	private String nome;
-	private String cognome;
-	private String email;
-	private String telefono;
+
+	public Acquirente(String username, String nome, String cognome, Date dataNascita, String numeroTelefono, ruolo role, String indirizzo) {
+		super(username, nome, cognome, dataNascita, numeroTelefono, role, indirizzo);
+	}
 
 	public void visualizzaProdotti() {
 		// TODO - implement Acquirente.visualizzaProdotti
@@ -61,6 +67,15 @@ public class Acquirente extends UtenteGenerico {
 
 	public void svuotaCarrello() {
 		// TODO - implement Acquirente.svuotaCarrello
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param evento
+	 */
+	public void partecipaEvento(Evento evento) {
+		// TODO - implement Acquirente.partecipaEvento
 		throw new UnsupportedOperationException();
 	}
 

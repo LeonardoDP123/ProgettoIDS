@@ -1,3 +1,5 @@
+package Entity;
+
 public class Fiera extends Evento {
 
 	private int ID;

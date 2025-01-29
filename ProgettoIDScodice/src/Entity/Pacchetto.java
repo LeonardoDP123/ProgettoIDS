@@ -1,3 +1,6 @@
+package Entity;
+import java.util.List;
+
 public class Pacchetto {
 
 	private int ID;
@@ -5,6 +8,7 @@ public class Pacchetto {
 	private String descrizione;
 	private double prezzoTotale;
 	private List<Prodotto> prodotti;
+	private boolean stato;
 
 	/**
 	 * 

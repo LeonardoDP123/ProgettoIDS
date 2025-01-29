@@ -1,8 +1,18 @@
-public class AnimatoreFiliera {
+package Entity;
+
+import Util.Enum.ruolo;
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AnimatoreFiliera extends User {
 
 	private int ID;
-	private String nome;
-	private String email;
+	private List<Evento> eventi;
+
+	public AnimatoreFiliera(String username, String nome, String cognome, Date dataNascita, String numeroTelefono, ruolo role, String indirizzo) {
+		super(username, nome, cognome, dataNascita, numeroTelefono, role, indirizzo);
+	}
 
 	/**
 	 * 

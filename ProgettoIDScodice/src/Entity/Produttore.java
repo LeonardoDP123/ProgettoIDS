@@ -1,11 +1,20 @@
+package Entity;
+
+import java.util.Date;
+import java.util.List;
+import Util.Enum.*;
+
 public class Produttore extends Venditore {
 
 	private int ID;
-	private String cognome;
-	private list<Prodotto> prodottiCaricati;
+	private List<Prodotto> prodottiCaricati;
 	private boolean listaCreata;
 	private metodoColtivazione metodoC;
 	private certificazione cert;
+
+	public Produttore(String username, String nome, String cognome, Date dataNascita, String numeroTelefono, ruolo role, String indirizzo) {
+		super(username, nome, cognome, dataNascita, numeroTelefono, role, indirizzo);
+	}
 
 	public void visualizzaInfoVenditore() {
 		// TODO - implement Produttore.visualizzaInfoVenditore
@@ -17,7 +26,7 @@ public class Produttore extends Venditore {
 	 * @param attributo
 	 * @param nuovoValore
 	 */
-	public void aggiornaInfoVenditore(string attributo, Object nuovoValore) {
+	public void aggiornaInfoVenditore(String attributo, Object nuovoValore) {
 		// TODO - implement Produttore.aggiornaInfoVenditore
 		throw new UnsupportedOperationException();
 	}
@@ -42,11 +51,6 @@ public class Produttore extends Venditore {
 	 */
 	public void rimuoviProdotto(Prodotto prodotto) {
 		// TODO - implement Produttore.rimuoviProdotto
-		throw new UnsupportedOperationException();
-	}
-
-	public void visualizzaCertificazioni() {
-		// TODO - implement Produttore.visualizzaCertificazioni
 		throw new UnsupportedOperationException();
 	}
 

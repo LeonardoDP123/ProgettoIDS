@@ -1,3 +1,5 @@
+package Entity;
+
 public class Visita extends Evento {
 
 	private int ID;
