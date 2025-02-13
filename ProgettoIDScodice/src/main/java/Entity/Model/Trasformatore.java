@@ -1,4 +1,5 @@
 package Entity;
+import Entity.Model.ProcessoTrasformazione;
 import Util.Enum.ruolo;
 
 import java.util.Date;

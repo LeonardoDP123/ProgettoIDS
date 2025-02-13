@@ -1,9 +1,7 @@
 package Entity.Controller;
 
-import Entity.Controller.Evento;
 import Util.Enum.ruolo;
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AnimatoreFiliera extends Entity.User {

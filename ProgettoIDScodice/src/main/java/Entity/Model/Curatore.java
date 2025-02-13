@@ -1,53 +1,55 @@
-package Entity;
+package Entity.Model;
 
-import Util.Enum.ruolo;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
+public class Curatore {
+	private int id;
 
-public class Curatore extends User {
-
-
-
-	public Curatore(String username, String nome, String cognome, LocalDate dataNascita, String numeroTelefono, String indirizzo) {
-		super(username, nome, cognome, dataNascita, numeroTelefono, ruolo.Curatore, indirizzo);
+	public Curatore(int id) {
+		this.id = id;
 	}
 
-	public static Curatore creaCuratore()
-		{
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Inserisci username");
-		String username = sc.nextLine();
-
-		System.out.println("Inserisci nome");
-		String nome = sc.nextLine();
-
-		System.out.println("Inserisci cognome");
-		String cognome = sc.nextLine();
-
-		System.out.println("Inserisci data di nascita (formato: YYYY-MM-DD)");
-		String dataNascitaStr = sc.nextLine();
-		LocalDate dataNascita = LocalDate.parse(dataNascitaStr, DateTimeFormatter.ISO_DATE);
-
-		System.out.println("Inserisci numero di telefono");
-		String numeroTelefono = sc.nextLine();
-
-		System.out.println("Inserisci indirizzo");
-		String indirizzo = sc.nextLine();
-
-		return new Curatore(username,nome,cognome,dataNascita,numeroTelefono,indirizzo);
-
+	public int getId() {
+		return id;
 	}
 
+	// Approva un prodotto solo se supera i controlli
+	public void valutaProdotto(Prodotto prodotto) {
+		if (prodotto.getQuantitaDisponibile() <= 0) {
+			System.out.println("Prodotto RIFIUTATO: " + prodotto.getNome() + " (Quantità insufficiente)");
+			return;
+		}
+		if (prodotto.getNome() == null || prodotto.getNome().trim().isEmpty()) {
+			System.out.println("Prodotto RIFIUTATO: Nome non valido");
+			return;
+		}
+		if (prodotto.getDescrizione() == null || prodotto.getDescrizione().trim().length() < 5) {
+			System.out.println("Prodotto RIFIUTATO: " + prodotto.getNome() + " (Descrizione troppo breve)");
+			return;
+		}
 
-
-
-	public void approvaProdotto() {
-
+		prodotto.approvaProdotto();
+		System.out.println("Prodotto APPROVATO: " + prodotto.getNome());
 	}
 
-	public void confermaPacchetto() {
+	// Approva un pacchetto solo se è valido
+	public void valutaPacchetto(Pacchetto pacchetto) {
+		if (pacchetto.getProdotti().isEmpty()) {
+			System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Non contiene prodotti)");
+			return;
+		}
 
+		if (pacchetto.getQuantitaDisponibile() <= 0) {
+			System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Quantità insufficiente)");
+			return;
+		}
+
+		for (Prodotto prodotto : pacchetto.getProdotti()) {
+			if (!prodotto.isStato()) {
+				System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Contiene prodotti non approvati)");
+				return;
+			}
+		}
+
+		pacchetto.approvaPacchetto();
+		System.out.println("Pacchetto APPROVATO: " + pacchetto.getNome());
 	}
-
 }
