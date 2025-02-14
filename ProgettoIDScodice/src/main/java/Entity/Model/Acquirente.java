@@ -1,19 +1,19 @@
 package Entity.Model;
 
 
+import Entity.Controller.Ruolo;
 import Entity.UtenteGenerico;
-import Util.Enum.ruolo;
-
-
 import java.util.Date;
 
 public class Acquirente extends UtenteGenerico {
 
 	private int ID;
 
-	public Acquirente(String username, String nome, String cognome, Date dataNascita, String numeroTelefono, ruolo role, String indirizzo) {
+	public Acquirente(String username, String nome, String cognome, Date dataNascita, String numeroTelefono, Ruolo role, String indirizzo) {
 		super(username, nome, cognome, dataNascita, numeroTelefono, role, indirizzo);
 	}
+
+
 
 	public void visualizzaProdotti() {
 		// TODO - implement Acquirente.visualizzaProdotti

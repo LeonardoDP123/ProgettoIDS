@@ -4,19 +4,15 @@ import Entity.Controller.Ruolo;
 
 import java.time.LocalDate;
 
+/**
+ * Classe astratta per un venditore (Produttore, Trasformatore, DistributoreTipicità).
+ */
 public abstract class Venditore extends User {
 	public Venditore(int id, String username, String nome, String cognome, LocalDate dataDiNascita,
 					 String numeroDiTelefono, String indirizzo) {
-		super(id, username, nome, cognome, dataDiNascita, numeroDiTelefono, Ruolo.VENDITORE, indirizzo);
+		super(id, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo, Ruolo.VENDITORE);
 	}
 
-	// Metodi astratti da implementare nelle sottoclassi
-	public abstract void aggiungiProdotto(Prodotto prodotto);
-	public abstract void rimuoviProdotto(Prodotto prodotto);
-	public abstract void modificaProdotto(Prodotto prodotto, String nuovoNome, String nuovaDescrizione, int nuovaQuantita);
-
-	@Override
-	public void mostraDettagli() {
-		System.out.println("Venditore: " + getNome() + " " + getCognome() + " | Username: " + getUsername() + " | Telefono: " + getNumeroDiTelefono());
-	}
+	public abstract void aggiungiProdotto();
+	public abstract void rimuoviProdotto();
 }
