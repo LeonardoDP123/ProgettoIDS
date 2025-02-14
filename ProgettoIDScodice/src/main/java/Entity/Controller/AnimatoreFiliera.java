@@ -9,7 +9,7 @@ public class AnimatoreFiliera extends Entity.User {
 	private int ID;
 	private List<Entity.Evento> eventi;
 
-	public AnimatoreFiliera(String username, String nome, String cognome, Date dataNascita, String numeroTelefono, ruolo role, String indirizzo) {
+	public AnimatoreFiliera(String username, String nome, String cognome, Date dataNascita, String numeroTelefono, Ruolo role, String indirizzo) {
 		super(username, nome, cognome, dataNascita, numeroTelefono, role, indirizzo);
 	}
 

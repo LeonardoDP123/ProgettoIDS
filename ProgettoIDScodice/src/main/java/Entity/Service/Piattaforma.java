@@ -17,7 +17,7 @@ public class Piattaforma {
 	}
 
 		void scegliRuolo(){
-		System.out.println("Seleziona il tuo ruolo (Acquirente, Venditore, Curatore)");
+		System.out.println("Seleziona il tuo Ruolo (Acquirente, Venditore, Curatore)");
 		return scanner.nextLine();
 	}
 

@@ -1,37 +1,22 @@
-package Entity;
+package Entity.Model;
 
-import Util.Enum.ruolo;
+import Entity.Controller.Ruolo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public abstract class Venditore extends User {
-
-	private int ID;
-	private String ragioneSociale;
-
-	public Venditore(String username, String nome, String cognome, Date dataNascita, String numeroTelefono, ruolo role, String indirizzo) {
-		super(username, nome, cognome, dataNascita, numeroTelefono, role, indirizzo);
+	public Venditore(int id, String username, String nome, String cognome, LocalDate dataDiNascita,
+					 String numeroDiTelefono, String indirizzo) {
+		super(id, username, nome, cognome, dataDiNascita, numeroDiTelefono, Ruolo.VENDITORE, indirizzo);
 	}
 
-	public void visualizzaInfoVenditore() {
-		// TODO - implement Venditore.visualizzaInfoVenditore
-		throw new UnsupportedOperationException();
+	// Metodi astratti da implementare nelle sottoclassi
+	public abstract void aggiungiProdotto(Prodotto prodotto);
+	public abstract void rimuoviProdotto(Prodotto prodotto);
+	public abstract void modificaProdotto(Prodotto prodotto, String nuovoNome, String nuovaDescrizione, int nuovaQuantita);
+
+	@Override
+	public void mostraDettagli() {
+		System.out.println("Venditore: " + getNome() + " " + getCognome() + " | Username: " + getUsername() + " | Telefono: " + getNumeroDiTelefono());
 	}
-
-	/**
-	 * 
-	 * @param attributo
-	 * @param nuovoValore
-	 */
-
-	public void aggiornaInfoVenditore(String attributo, Object nuovoValore) {
-		// TODO - implement Venditore.aggiornaInfoVenditore
-		throw new UnsupportedOperationException();
-	}
-
-	public void mostraProdottiCaricati() {
-		// TODO - implement Venditore.mostraProdottiCaricati
-		throw new UnsupportedOperationException();
-	}
-
 }

@@ -1,7 +1,6 @@
 package Entity.Model;
 
 
-import Entity.Prodotto;
 import Entity.UtenteGenerico;
 import Util.Enum.ruolo;
 
