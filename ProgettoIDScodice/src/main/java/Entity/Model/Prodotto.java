@@ -1,34 +1,44 @@
 package Entity.Model;
 
 
+import Entity.Controller.Certificazione;
+import Entity.Controller.MetodoColtivazione;
+
 public class Prodotto {
 	private int id;
 	private String nome;
 	private String descrizione;
-	private int quantitaDisponibile;
+	private double prezzo;
 	private String categoria;
-	private boolean stato;
+	private MetodoColtivazione metodoColtivazione;
+	private Certificazione certificazione;
+	private int quantitaDisponibile;
+	private boolean stato; // Indica se il prodotto è stato approvato dal curatore
 
-	public Prodotto(int id, String nome, String descrizione, int quantitaDisponibile, String categoria) {
+
+	public Prodotto(int id, String nome, String descrizione, double prezzo, String categoria, int quantitaDisponibile) {
 		this.id = id;
 		this.nome = nome;
 		this.descrizione = descrizione;
-		this.quantitaDisponibile = Math.max(quantitaDisponibile, 0); // Evita quantità negative
+		this.prezzo = prezzo;
 		this.categoria = categoria;
+		this.quantitaDisponibile = quantitaDisponibile;
 		this.stato = false;
 	}
 
-	// Metodo per verificare se il prodotto è disponibile
-	public boolean isDisponibile() {
-		return this.quantitaDisponibile > 0;
+	// 🔹 Costruttore per Produttore con certificazione e metodo di coltivazione
+	public Prodotto(int id, String nome, String descrizione, double prezzo, String categoria,
+					int quantitaDisponibile, MetodoColtivazione metodoColtivazione, Certificazione certificazione) {
+		this(id, nome, descrizione, prezzo, categoria, quantitaDisponibile);
+		this.metodoColtivazione = metodoColtivazione;
+		this.certificazione = certificazione;
 	}
 
-	public void approvaProdotto() {
-		this.stato = true;
-	}
+	public boolean isDisponibile() { return this.quantitaDisponibile > 0; }
+	public void approvaProdotto() { this.stato = true; }
 
-	public int getId() {
-		return id;
+	public String getNome() {
+		return nome;
 	}
 
 	public void setNome(String nome) {
@@ -43,8 +53,12 @@ public class Prodotto {
 		this.descrizione = descrizione;
 	}
 
-	public void setQuantitaDisponibile(int quantitaDisponibile) {
-		this.quantitaDisponibile = quantitaDisponibile;
+	public double getPrezzo() {
+		return prezzo;
+	}
+
+	public void setPrezzo(double prezzo) {
+		this.prezzo = prezzo;
 	}
 
 	public String getCategoria() {
@@ -55,6 +69,30 @@ public class Prodotto {
 		this.categoria = categoria;
 	}
 
+	public MetodoColtivazione getMetodoColtivazione() {
+		return metodoColtivazione;
+	}
+
+	public void setMetodoColtivazione(MetodoColtivazione metodoColtivazione) {
+		this.metodoColtivazione = metodoColtivazione;
+	}
+
+	public Certificazione getCertificazione() {
+		return certificazione;
+	}
+
+	public void setCertificazione(Certificazione certificazione) {
+		this.certificazione = certificazione;
+	}
+
+	public int getQuantitaDisponibile() {
+		return quantitaDisponibile;
+	}
+
+	public void setQuantitaDisponibile(int quantitaDisponibile) {
+		this.quantitaDisponibile = quantitaDisponibile;
+	}
+
 	public boolean isStato() {
 		return stato;
 	}
@@ -63,17 +101,18 @@ public class Prodotto {
 		this.stato = stato;
 	}
 
-	public int getQuantitaDisponibile() { return quantitaDisponibile; }
-	public String getNome() { return nome; }
 	@Override
 	public String toString() {
 		return "Prodotto{" +
 				"id=" + id +
 				", nome='" + nome + '\'' +
 				", descrizione='" + descrizione + '\'' +
-				", quantitaDisponibile=" + quantitaDisponibile +
+				", prezzo=" + prezzo +
 				", categoria='" + categoria + '\'' +
-				", stato=" + (stato ? "APPROVATO" : "NON APPROVATO") +
+				", quantitaDisponibile=" + quantitaDisponibile +
+				", metodoColtivazione=" + (metodoColtivazione != null ? metodoColtivazione : "Nessuno") +
+				", certificazione=" + (certificazione != null ? certificazione : "Nessuna") +
+				", stato=" + (stato ? "Approvato" : "Non Approvato") +
 				'}';
 	}
 }

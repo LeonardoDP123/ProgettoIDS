@@ -2,62 +2,72 @@ package Entity.Model;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pacchetto {
 	private int ID;
 	private String nome;
 	private String descrizione;
+	private List<Prodotto> prodotti;
 	private double prezzoTotale;
 	private int quantitaDisponibile;
-	private boolean stato; // false di default
-	private List<Prodotto> prodotti;
+	private boolean completato; // Indica se il pacchetto è completato e non può più essere modificato dal Distrbutore
+	private boolean stato; // // Indica se il prodotto è stato approvato dal curatore
 
-	public Pacchetto(int ID, String nome, String descrizione, double prezzoTotale, int quantitaDisponibile) {
+	public Pacchetto(int ID, String nome, String descrizione) {
 		this.ID = ID;
 		this.nome = nome;
 		this.descrizione = descrizione;
-		this.prezzoTotale = Math.max(prezzoTotale, 0.0);
-		this.quantitaDisponibile = quantitaDisponibile;
+		this.prezzoTotale = 0.0;
+		this.quantitaDisponibile = 0;
 		this.prodotti = new ArrayList<>();
-		this.stato = false; // Il pacchetto inizia non approvato
+		this.completato = false;
+		this.stato = false;
 	}
 
-	// Metodo per approvare il pacchetto
-	public void approvaPacchetto() {
-		this.stato = true;
-	}
-
-	// Metodo per aggiungere un prodotto al pacchetto
 	public void aggiungiProdotto(Prodotto prodotto) {
-		if (prodotto.isStato()) { // Permette solo prodotti approvati
+		if (!completato) {
 			prodotti.add(prodotto);
+			quantitaDisponibile++;
 		} else {
-			System.out.println("ERRORE: Il prodotto " + prodotto.getNome() + " NON è approvato e non può essere aggiunto al pacchetto.");
+			System.out.println("Il pacchetto è già stato completato o approvato e non può essere modificato.");
 		}
 	}
 
-	// Metodo per rimuovere un prodotto dal pacchetto
 	public void rimuoviProdotto(Prodotto prodotto) {
-		if (prodotti.contains(prodotto)) {
+		if (!completato) {
 			prodotti.remove(prodotto);
-			System.out.println("Il prodotto " + prodotto.getNome() + " è stato RIMOSSO dal pacchetto.");
+			quantitaDisponibile--;
 		} else {
-			System.out.println("ERRORE: Il prodotto " + prodotto.getNome() + " NON è presente nel pacchetto.");
+			System.out.println("Il pacchetto è già stato completato o approvato e non può essere modificato.");
 		}
 	}
 
-	// Metodo toString() per una rappresentazione leggibile
+	public void completaPacchetto(double prezzoTotale) {
+		if (!completato) {
+			this.prezzoTotale = prezzoTotale;
+			this.completato = true;
+		} else {
+			System.out.println("Il pacchetto è già stato completato o approvato.");
+		}
+	}
+
 	@Override
 	public String toString() {
 		return "Pacchetto{" +
-				"id=" + ID +
+				"ID=" + ID +
 				", nome='" + nome + '\'' +
 				", descrizione='" + descrizione + '\'' +
-				", prezzoTotale=" + prezzoTotale + "€" +
+				", prezzoTotale=" + prezzoTotale +
 				", quantitaDisponibile=" + quantitaDisponibile +
-				", stato=" + (stato ? "APPROVATO" : "NON APPROVATO") +
-				", prodotti=" + prodotti.size() +
+				", prodotti=" + prodotti.size() + " articoli" +
+				", completato=" + (completato ? "Sì" : "No") +
+				", stato=" + (stato ? "Approvato" : "Non Approvato") +
 				'}';
 	}
+
+
 
 	// Getter e Setter
 	public int getId() { return ID; }

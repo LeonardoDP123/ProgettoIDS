@@ -1,11 +1,10 @@
-package Entity;
+package Entity.Model;
 import Entity.Model.ProcessoTrasformazione;
-import Util.Enum.ruolo;
 
 import java.util.Date;
 import java.util.List;
 
-public class Trasformatore extends Venditore {
+/*public class Trasformatore extends Venditore {
 
 	private int ID;
 	private String tipologia;
@@ -22,11 +21,7 @@ public class Trasformatore extends Venditore {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param attributo
-	 * @param nuovoValore
-	 */
+
 	public void aggiornaInfoVenditore(String attributo, Object nuovoValore) {
 		// TODO - implement Trasformatore.aggiornaInfoVenditore
 		throw new UnsupportedOperationException();
@@ -37,32 +32,22 @@ public class Trasformatore extends Venditore {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param prodotto
-	 * @param processoTrasformazione
-	 */
+
 	public void effettuaTrasformazione(Prodotto prodotto, ProcessoTrasformazione processoTrasformazione) {
 		// TODO - implement Trasformatore.effettuaTrasformazione
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param prodotto
-	 */
+
 	public void caricaProdottoTrasformato(Prodotto prodotto) {
 		// TODO - implement Trasformatore.caricaProdottoTrasformato
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param prodotto
-	 */
+
 	public void rimuoviProdottoTrasformato(Prodotto prodotto) {
 		// TODO - implement Trasformatore.rimuoviProdottoTrasformato
 		throw new UnsupportedOperationException();
 	}
 
-}
+}*/

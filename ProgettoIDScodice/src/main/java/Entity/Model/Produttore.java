@@ -1,57 +1,40 @@
-package Entity;
+package Entity.Model;
 
-import java.util.Date;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import Util.Enum.*;
 
 public class Produttore extends Venditore {
+	private List<Prodotto> prodotti;
 
-	private int ID;
-	private List<Prodotto> prodottiCaricati;
-	private boolean listaCreata;
-	private metodoColtivazione metodoC;
-	private certificazione cert;
-
-	public Produttore(String username, String nome, String cognome, Date dataNascita, String numeroTelefono, ruolo role, String indirizzo) {
-		super(username, nome, cognome, dataNascita, numeroTelefono, role, indirizzo);
+	public Produttore(int id, String username, String nome, String cognome,
+					  LocalDate dataDiNascita, String numeroDiTelefono, String indirizzo) {
+		super(id, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo);
+		this.prodotti = new ArrayList<>();
 	}
 
-	public void visualizzaInfoVenditore() {
-		// TODO - implement Produttore.visualizzaInfoVenditore
-		throw new UnsupportedOperationException();
+	public void aggiungiProdotto(Prodotto prodotto) {
+		prodotti.add(prodotto);
 	}
 
-	/**
-	 * 
-	 * @param attributo
-	 * @param nuovoValore
-	 */
-	public void aggiornaInfoVenditore(String attributo, Object nuovoValore) {
-		// TODO - implement Produttore.aggiornaInfoVenditore
-		throw new UnsupportedOperationException();
-	}
-
-	public void mostraProdottiCaricati() {
-		// TODO - implement Produttore.mostraProdottiCaricati
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param prodotto
-	 */
-	public void caricaProdotto(Prodotto prodotto) {
-		// TODO - implement Produttore.caricaProdotto
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param prodotto
-	 */
 	public void rimuoviProdotto(Prodotto prodotto) {
-		// TODO - implement Produttore.rimuoviProdotto
-		throw new UnsupportedOperationException();
+		prodotti.remove(prodotto);
 	}
 
+	public void mostraProdotti() {
+		if (prodotti.isEmpty()) {
+			System.out.println("Nessun prodotto registrato.");
+		} else {
+			for (Prodotto p : prodotti) {
+				System.out.println(p);
+			}
+		}
+	}
+
+	@Override
+	public void mostraDettagli() {
+		System.out.println("Produttore: " + getNome() + " " + getCognome());
+		System.out.println("Prodotti in vendita: " + prodotti.size());
+	}
 }

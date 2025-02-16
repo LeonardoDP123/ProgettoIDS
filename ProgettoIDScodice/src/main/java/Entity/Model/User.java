@@ -1,5 +1,6 @@
 package Entity.Model;
 
+
 import Entity.Controller.Ruolo;
 
 import java.time.LocalDate;

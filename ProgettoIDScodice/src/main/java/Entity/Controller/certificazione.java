@@ -1,6 +1,6 @@
-package Util.Enum;
+package Entity.Controller;
 
-public enum certificazione {
+public enum Certificazione {
 	DOC,
 	IGP,
 	DOP,

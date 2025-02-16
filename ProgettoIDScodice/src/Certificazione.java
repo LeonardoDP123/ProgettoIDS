@@ -1,8 +1,9 @@
-public class Certificazione {
+package main.java;
 
-	private int ID;
-	private String nome;
-	private String enteRilasciante;
-	private Date dataRilascio;
 
+public enum Certificazione {
+	DOC,
+	IGP,
+	DOP,
+	STG
 }

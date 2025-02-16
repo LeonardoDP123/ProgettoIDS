@@ -1,14 +1,14 @@
 package Entity.Model;
 
-public class Curatore {
-	private int id;
+/*public class Curatore {
+	private int ID;
 
-	public Curatore(int id) {
-		this.id = id;
+	public Curatore(int ID) {
+		this.ID = ID;
 	}
 
-	public int getId() {
-		return id;
+	public int getID() {
+		return ID;
 	}
 
 	// Approva un prodotto solo se supera i controlli
@@ -52,4 +52,4 @@ public class Curatore {
 		pacchetto.approvaPacchetto();
 		System.out.println("Pacchetto APPROVATO: " + pacchetto.getNome());
 	}
-}
+}*/

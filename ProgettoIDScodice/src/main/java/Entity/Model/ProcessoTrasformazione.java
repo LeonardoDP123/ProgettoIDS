@@ -1,11 +1,13 @@
 package Entity.Model;
 
+import java.time.LocalDate;
+
 public class ProcessoTrasformazione {
 
 	private int ID;
 	private String descrizione;
-	private Date dataInizio;
-	private Date dataFine;
+	private LocalDate dataInizio;
+	private LocalDate dataFine;
 
 	public void visualizzaInfoProcesso() {
 		// TODO - implement ProcessoTrasformazione.visualizzaInfoProcesso

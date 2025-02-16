@@ -1,10 +1,8 @@
 package Entity.Controller;
-
-import Util.Enum.ruolo;
 import java.util.Date;
 import java.util.List;
 
-public class AnimatoreFiliera extends Entity.User {
+/*public class AnimatoreFiliera extends Entity.User {
 
 	private int ID;
 	private List<Entity.Evento> eventi;
@@ -13,23 +11,16 @@ public class AnimatoreFiliera extends Entity.User {
 		super(username, nome, cognome, dataNascita, numeroTelefono, role, indirizzo);
 	}
 
-	/**
-	 * 
-	 * @param evento
-	 */
+
 	public void organizzaEvento(Entity.Evento evento) {
 		// TODO - implement AnimatoreFiliera.organizzaEvento
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param venditore
-	 * @param evento
-	 */
+
 	public void invitaVenditoreAllEvento(Entity.Venditore venditore, Entity.Evento evento) {
 		// TODO - implement AnimatoreFiliera.invitaVenditoreAllEvento
 		throw new UnsupportedOperationException();
 	}
 
-}
+}*/

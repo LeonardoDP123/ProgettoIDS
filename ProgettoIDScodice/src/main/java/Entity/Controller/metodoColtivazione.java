@@ -1,7 +1,7 @@
 package Entity.Controller;
 
-public enum metodoColtivazione {
-	Bio,
-	Convenzionale,
-	Integrato
+public enum MetodoColtivazione {
+	BIO,
+	CONVENZIONALE,
+	INTEGRATO
 }

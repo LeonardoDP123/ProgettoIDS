@@ -1,15 +1,19 @@
-package Entity;
+package Entity.Model;
 
-import Util.Enum.ruolo;
+import Entity.Controller.Ruolo;
+import Entity.Model.User;
 
 import java.util.Date;
 
-public class UtenteGenerico extends User {
+/*public class UtenteGenerico extends User {
 
-	private int ID;
-
-	public UtenteGenerico(String username, String nome, String cognome, Date dataNascita, String numeroTelefono, ruolo role, String indirizzo) {
-		super(username, nome, cognome, dataNascita, numeroTelefono, role, indirizzo);
+	public UtenteGenerico(int ID, String username, String nome, String cognome, Date dataNascita, String numeroTelefono, String indirizzo, Ruolo ruolo ) {
+		super(ID, username, nome, cognome, dataNascita, numeroTelefono, indirizzo, ruolo );
 	}
 
-}
+	@Override
+	public void mostraDettagli() {
+
+	}
+
+}*/
