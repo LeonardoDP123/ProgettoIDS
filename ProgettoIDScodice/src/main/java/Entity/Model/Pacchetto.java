@@ -80,4 +80,8 @@ public class Pacchetto {
 
 	public void setPrezzoTotale(double prezzoTotale) { this.prezzoTotale = Math.max(prezzoTotale, 0.0); } // Evita prezzi negativi
 	public void setQuantitaDisponibile(int quantitaDisponibile) { this.quantitaDisponibile = Math.max(quantitaDisponibile, 0); }
+
+    public void approvaPacchetto() {
+		this.stato = true;
+    }
 }

@@ -5,7 +5,7 @@ import Entity.Controller.Certificazione;
 import Entity.Controller.MetodoColtivazione;
 
 public class Prodotto {
-	private int id;
+	private int ID;
 	private String nome;
 	private String descrizione;
 	private double prezzo;
@@ -16,8 +16,8 @@ public class Prodotto {
 	private boolean stato; // Indica se il prodotto è stato approvato dal curatore
 
 
-	public Prodotto(int id, String nome, String descrizione, double prezzo, String categoria, int quantitaDisponibile) {
-		this.id = id;
+	public Prodotto(int ID, String nome, String descrizione, double prezzo, String categoria, int quantitaDisponibile) {
+		this.ID = ID;
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.prezzo = prezzo;
@@ -27,9 +27,9 @@ public class Prodotto {
 	}
 
 	// 🔹 Costruttore per Produttore con certificazione e metodo di coltivazione
-	public Prodotto(int id, String nome, String descrizione, double prezzo, String categoria,
+	public Prodotto(int ID, String nome, String descrizione, double prezzo, String categoria,
 					int quantitaDisponibile, MetodoColtivazione metodoColtivazione, Certificazione certificazione) {
-		this(id, nome, descrizione, prezzo, categoria, quantitaDisponibile);
+		this(ID, nome, descrizione, prezzo, categoria, quantitaDisponibile);
 		this.metodoColtivazione = metodoColtivazione;
 		this.certificazione = certificazione;
 	}
@@ -44,6 +44,8 @@ public class Prodotto {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public int getID() {return ID;}
 
 	public String getDescrizione() {
 		return descrizione;
@@ -104,7 +106,7 @@ public class Prodotto {
 	@Override
 	public String toString() {
 		return "Prodotto{" +
-				"id=" + id +
+				"ID=" + ID +
 				", nome='" + nome + '\'' +
 				", descrizione='" + descrizione + '\'' +
 				", prezzo=" + prezzo +

@@ -19,6 +19,9 @@ public abstract class Venditore extends User {
 		System.out.println("Prodotto modificato: " + prodotto.getNome());
 	}
 
+	// Metodo per inviare SOLO i prodotti trasformati al Curatore
+	public abstract void inviaProdottoAlCuratore(Curatore curatore);
+
 	@Override
 	public void mostraDettagli() {
 		System.out.println("Venditore: " + getNome() + " " + getCognome() +
