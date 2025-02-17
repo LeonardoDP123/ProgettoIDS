@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Carrello {
+/*public class Carrello {
 
 	private int ID;
 	private Date dataOrdine;
@@ -29,4 +29,4 @@ public class Carrello {
 		throw new UnsupportedOperationException();
 	}
 
-}
+}*/

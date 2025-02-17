@@ -2,7 +2,7 @@ package Entity;
 
 import java.util.Scanner;
 
-public class Piattaforma {
+/*public class Piattaforma {
 
 	private AuthenticationManager authenticationManager = new AuthenticationManager();
 	private Scanner scanner = new Scanner(System.in);
@@ -28,4 +28,4 @@ public class Piattaforma {
 	void Login();
 
 
-}
+}*/

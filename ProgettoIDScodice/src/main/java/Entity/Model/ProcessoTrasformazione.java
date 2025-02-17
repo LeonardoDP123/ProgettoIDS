@@ -1,17 +1,18 @@
 package Entity.Model;
 
-import java.time.LocalDate;
-
 public class ProcessoTrasformazione {
-
-	private int ID;
 	private String descrizione;
-	private LocalDate dataInizio;
-	private LocalDate dataFine;
 
-	public void visualizzaInfoProcesso() {
-		// TODO - implement ProcessoTrasformazione.visualizzaInfoProcesso
-		throw new UnsupportedOperationException();
+	public ProcessoTrasformazione(String descrizione) {
+		this.descrizione = descrizione;
 	}
 
+	public String getDescrizione() {
+		return descrizione;
+	}
+
+	@Override
+	public String toString() {
+		return "Processo: " + descrizione;
+	}
 }
