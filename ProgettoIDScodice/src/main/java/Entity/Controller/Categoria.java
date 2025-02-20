@@ -9,9 +9,12 @@ public enum Categoria {
     CEREALI,
 
     // categorie utilizzate dal trasformatore
+    FORMAGGI,
     BEVANDE,
-    DOLCI,
-    FORMAGGI;
+    SOTTO_OLIO,
+    ESSICCATI,
+    AFFUMICATI,
+    FARINE;
 
     public static boolean isPrimaryCategory(Categoria categoria) {
         return categoria == LATTICINI || categoria == FRUTTA || categoria == VERDURA

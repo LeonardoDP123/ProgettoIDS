@@ -1,62 +1,50 @@
 package Entity.Model;
 
-import Entity.Controller.Categoria;
-import Entity.Controller.StrategiaTrasformazione;
+import Entity.Controller.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Trasformatore extends Venditore {
     private Map<Categoria, StrategiaTrasformazione> strategieTrasformazione;
     private List<Prodotto> prodottiCaricati;
-    private List<Prodotto> prodottiTrasformati;
 
-    public Trasformatore(int ID, String username, String nome, String cognome,
-                         LocalDate dataDiNascita, String numeroDiTelefono, String indirizzo) {
-        super(ID, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo);
-        this.prodottiCaricati = new ArrayList<>();
-        this.prodottiTrasformati = new ArrayList<>();
+    public Trasformatore(int ID, String username, String nome, String cognome, LocalDate dataDiNascita,
+                         String numeroDiTelefono, String indirizzo) {
+        super(ID, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo, Ruolo.TRASFORMATORE);
         this.strategieTrasformazione = new HashMap<>();
+        this.prodottiCaricati = new ArrayList<>();
     }
 
-    public void registraStrategia(Categoria categoria, StrategiaTrasformazione strategia) {
-        strategieTrasformazione.put(categoria, strategia);
-    }
 
     public void riceviProdotto(Prodotto prodotto) {
         prodottiCaricati.add(prodotto);
-        System.out.println("Prodotto ricevuto dal Produttore: " + prodotto.getNome());
+        System.out.println("Prodotto ricevuto: " + prodotto.getNome());
     }
 
     public Prodotto trasformaProdotto(int prodottoID, double nuovoPrezzo) {
-        Prodotto prodotto = trovaProdotto(prodottoID);
-        if (prodotto == null) {
-            System.out.println("Il prodotto non esiste o non è stato ricevuto.");
+        Prodotto prodottoBase = trovaProdotto(prodottoID);
+        if (prodottoBase == null) {
+            System.out.println("Errore: Il prodotto non esiste o non è stato ricevuto.");
             return null;
         }
 
-        StrategiaTrasformazione strategia = strategieTrasformazione.get(prodotto.getCategoria());
-        if (strategia != null) {
-            Prodotto prodottoTrasformato = strategia.trasforma(prodotto, nuovoPrezzo);
-            prodottiCaricati.remove(prodotto);
-            prodottiTrasformati.add(prodottoTrasformato);
-            System.out.println("Prodotto trasformato: " + prodottoTrasformato.getNome());
-            return prodottoTrasformato;
-        } else {
-            System.out.println("Nessuna strategia di trasformazione disponibile per la categoria: " + prodotto.getCategoria());
-            return null;
-        }
-    }
+        Prodotto prodottoTrasformato = null;
 
-    public void inviaProdottoAlCuratore(Curatore curatore) {
-        System.out.println("Il Trasformatore sta inviando prodotti trasformati al Curatore...");
-        for (Prodotto p : prodottiTrasformati) {
-            if (!p.isStato()) {
-                curatore.valutaArticolo(p);
-            }
+        switch (prodottoBase.getCategoria()) {
+            case LATTICINI:
+                prodottoTrasformato = new TrasformaLatteInFormaggio().trasforma(prodottoBase, nuovoPrezzo);
+                break;
+            // Puoi aggiungere altri case per altre categorie in futuro
+            default:
+                System.out.println("Errore: Nessuna strategia disponibile per la categoria: " + prodottoBase.getCategoria());
+                return null;
         }
+
+        prodottiCaricati.remove(prodottoBase);
+        aggiungiArticolo(prodottoTrasformato);
+        System.out.println("Prodotto trasformato: " + prodottoTrasformato.getNome());
+
+        return prodottoTrasformato;
     }
 
     private Prodotto trovaProdotto(int ID) {
@@ -66,7 +54,19 @@ public class Trasformatore extends Venditore {
         return null;
     }
 
+    public void mostraProdottiCaricati() {
+        if (prodottiCaricati.isEmpty()) {
+            System.out.println("Nessun prodotto caricato disponibile.");
+        } else {
+            prodottiCaricati.forEach(System.out::println);
+        }
+    }
 
-
+    public void mostraProdottiTrasformati() {
+        if (getArticoli().isEmpty()) {
+            System.out.println("Nessun prodotto trasformato disponibile.");
+        } else {
+            getArticoli().forEach(System.out::println);
+        }
+    }
 }
-
