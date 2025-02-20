@@ -1,31 +1,38 @@
 package Entity.Model;
 
+import Entity.Controller.Categoria;
+import Entity.Controller.StrategiaTrasformazione;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Trasformatore extends Venditore {
-    private String tipologia;
-    private String processo;
-    private List<Prodotto> prodottiCaricati;  // Prodotti ricevuti dal produttore
-    private List<Prodotto> prodottiTrasformati; // Prodotti trasformati
-    private boolean listaCreata;
+    private Map<Categoria, StrategiaTrasformazione> strategieTrasformazione;
+    private List<Prodotto> prodottiCaricati;
+    private List<Prodotto> prodottiTrasformati;
 
     public Trasformatore(int ID, String username, String nome, String cognome,
                          LocalDate dataDiNascita, String numeroDiTelefono, String indirizzo) {
         super(ID, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo);
         this.prodottiCaricati = new ArrayList<>();
         this.prodottiTrasformati = new ArrayList<>();
-        this.listaCreata = false;
+        this.strategieTrasformazione = new HashMap<>();
     }
 
-    // Metodo per ricevere prodotti dal Produttore
+    public void registraStrategia(Categoria categoria, StrategiaTrasformazione strategia) {
+        strategieTrasformazione.put(categoria, strategia);
+    }
+
+
     public void riceviProdotto(Prodotto prodotto) {
         prodottiCaricati.add(prodotto);
         System.out.println("Prodotto ricevuto dal Produttore: " + prodotto.getNome());
     }
 
-    // Metodo per trasformare un prodotto ricevuto
+
+
     public Prodotto trasformaProdotto(int prodottoID, double nuovoPrezzo) {
         Prodotto prodottoBase = trovaProdotto(prodottoID);
         if (prodottoBase == null) {
@@ -33,10 +40,10 @@ public class Trasformatore extends Venditore {
             return null;
         }
 
-        StrategiaTrasformazione strategia = GestoreStrategie.getStrategia(prodottoBase.getCategoria());
+        StrategiaTrasformazione strategia = strategieTrasformazione.get(prodottoBase.getCategoria());
         if (strategia != null) {
             Prodotto prodottoTrasformato = strategia.trasforma(prodottoBase, nuovoPrezzo);
-            prodottiCaricati.remove(prodottoBase); // Rimuoviamo il prodotto originale
+            prodottiCaricati.remove(prodottoBase);
             prodottiTrasformati.add(prodottoTrasformato);
             System.out.println("Prodotto trasformato: " + prodottoTrasformato.getNome());
             return prodottoTrasformato;
@@ -46,39 +53,21 @@ public class Trasformatore extends Venditore {
         }
     }
 
-    // Metodo per inviare SOLO i prodotti trasformati al Curatore
-    @Override
+
     public void inviaProdottoAlCuratore(Curatore curatore) {
         System.out.println("Il Trasformatore sta inviando prodotti trasformati al Curatore...");
         for (Prodotto p : prodottiTrasformati) {
-            if (!p.isStato()) { // Solo i prodotti non ancora approvati vengono inviati
+            if (!p.isStato()) {
                 curatore.valutaProdotto(p);
             }
         }
     }
 
-    // Trova un prodotto per ID tra i prodotti ricevuti
     private Prodotto trovaProdotto(int ID) {
         for (Prodotto p : prodottiCaricati) {
             if (p.getID() == ID) return p;
         }
         return null;
-    }
-
-    // Metodi originali della tua classe
-
-    public void visualizzaInfoVenditore() {
-        System.out.println("Trasformatore: " + getNome() + " " + getCognome());
-        System.out.println("Tipologia: " + tipologia);
-        System.out.println("Processo di trasformazione: " + processo);
-        System.out.println("Prodotti caricati: " + prodottiCaricati.size());
-        System.out.println("Prodotti trasformati: " + prodottiTrasformati.size());
-    }
-
-    public void aggiornaInfoVenditore(String tipologia, String processo) {
-        this.tipologia = tipologia;
-        this.processo = processo;
-        System.out.println("Informazioni aggiornate per " + getNome());
     }
 
     public void mostraProdottiCaricati() {
@@ -95,12 +84,5 @@ public class Trasformatore extends Venditore {
         } else {
             prodottiTrasformati.forEach(System.out::println);
         }
-    }
-
-    @Override
-    public void mostraDettagli() {
-        super.mostraDettagli();
-        System.out.println("Ruolo: Trasformatore | Prodotti caricati: " + prodottiCaricati.size() +
-                " | Prodotti trasformati: " + prodottiTrasformati.size());
     }
 }

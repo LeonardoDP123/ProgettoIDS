@@ -1,22 +1,21 @@
 package Entity.Model;
 
-
 import Entity.Controller.Certificazione;
 import Entity.Controller.MetodoColtivazione;
+import Entity.Controller.Categoria;
 
-public class Prodotto {
+public class Prodotto extends Articolo {
 	private int ID;
 	private String nome;
 	private String descrizione;
 	private double prezzo;
-	private String categoria;
+	private Categoria categoria;
 	private MetodoColtivazione metodoColtivazione;
 	private Certificazione certificazione;
 	private int quantitaDisponibile;
-	private boolean stato; // Indica se il prodotto è stato approvato dal curatore
+	private boolean stato;
 
-
-	public Prodotto(int ID, String nome, String descrizione, double prezzo, String categoria, int quantitaDisponibile) {
+	public Prodotto(int ID, String nome, String descrizione, double prezzo, Categoria categoria, int quantitaDisponibile) {
 		this.ID = ID;
 		this.nome = nome;
 		this.descrizione = descrizione;
@@ -26,9 +25,7 @@ public class Prodotto {
 		this.stato = false;
 	}
 
-	// 🔹 Costruttore per Produttore con certificazione e metodo di coltivazione
-	public Prodotto(int ID, String nome, String descrizione, double prezzo, String categoria,
-					int quantitaDisponibile, MetodoColtivazione metodoColtivazione, Certificazione certificazione) {
+	public Prodotto(int ID, String nome, String descrizione, double prezzo, Categoria categoria, int quantitaDisponibile, MetodoColtivazione metodoColtivazione, Certificazione certificazione) {
 		this(ID, nome, descrizione, prezzo, categoria, quantitaDisponibile);
 		this.metodoColtivazione = metodoColtivazione;
 		this.certificazione = certificazione;
@@ -45,7 +42,7 @@ public class Prodotto {
 		this.nome = nome;
 	}
 
-	public int getID() {return ID;}
+	public int getID() { return ID; }
 
 	public String getDescrizione() {
 		return descrizione;
@@ -63,11 +60,11 @@ public class Prodotto {
 		this.prezzo = prezzo;
 	}
 
-	public String getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 
@@ -110,7 +107,7 @@ public class Prodotto {
 				", nome='" + nome + '\'' +
 				", descrizione='" + descrizione + '\'' +
 				", prezzo=" + prezzo +
-				", categoria='" + categoria + '\'' +
+				", categoria=" + categoria +
 				", quantitaDisponibile=" + quantitaDisponibile +
 				", metodoColtivazione=" + (metodoColtivazione != null ? metodoColtivazione : "Nessuno") +
 				", certificazione=" + (certificazione != null ? certificazione : "Nessuna") +

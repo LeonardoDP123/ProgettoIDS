@@ -14,6 +14,11 @@ public class DistributoreTipicita extends Venditore {
         this.pacchetti = new ArrayList<>();
     }
 
+    @Override
+    public void inviaProdottoAlCuratore(Curatore curatore) {
+
+    }
+
     public Pacchetto creaPacchetto(int ID, String nome, String descrizione) {
         Pacchetto pacchetto = new Pacchetto(ID, nome, descrizione);
         pacchetti.add(pacchetto);

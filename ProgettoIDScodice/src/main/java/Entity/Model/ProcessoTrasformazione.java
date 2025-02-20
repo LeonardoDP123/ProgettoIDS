@@ -4,6 +4,7 @@ public class ProcessoTrasformazione {
 	private String descrizione;
 
 	public ProcessoTrasformazione(String descrizione) {
+
 		this.descrizione = descrizione;
 	}
 

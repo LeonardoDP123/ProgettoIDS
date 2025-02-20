@@ -1,6 +1,8 @@
 package Entity.Model;
 
 
+import Entity.Controller.Categoria;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,12 @@ public class Produttore extends Venditore {
 	}
 
 	public void aggiungiProdotto(Prodotto prodotto) {
-		prodotti.add(prodotto);
+		if (Categoria.isPrimaryCategory(prodotto.getCategoria())) {
+			prodotti.add(prodotto);
+			System.out.println("Prodotto aggiunto con successo.");
+		} else {
+			System.out.println("Errore: La categoria " + prodotto.getCategoria() + " non è valida per un produttore.");
+		}
 	}
 
 	public void rimuoviProdotto(Prodotto prodotto) {
@@ -35,7 +42,7 @@ public class Produttore extends Venditore {
 			trasformatore.riceviProdotto(p);
 		}
 		System.out.println("Il Produttore sta inviando prodotti al Trasformatore...");
-		prodotti.removeAll(prodotti);
+		prodotti.clear();
 	}
 
 	public void mostraProdotti() {
@@ -46,6 +53,14 @@ public class Produttore extends Venditore {
 				System.out.println(p);
 			}
 		}
+	}
+
+	@Override
+	public void modificaProdotto(Prodotto prodotto, String nuovoNome, String nuovaDescrizione, int nuovaQuantita) {
+		prodotto.setNome(nuovoNome);
+		prodotto.setDescrizione(nuovaDescrizione);
+		prodotto.setQuantitaDisponibile(nuovaQuantita);
+		System.out.println("Prodotto modificato: " + prodotto.getNome());
 	}
 
 	@Override

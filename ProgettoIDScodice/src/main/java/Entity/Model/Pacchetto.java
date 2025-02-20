@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pacchetto {
+public class Pacchetto  extends Articolo {
 	private int ID;
 	private String nome;
 	private String descrizione;

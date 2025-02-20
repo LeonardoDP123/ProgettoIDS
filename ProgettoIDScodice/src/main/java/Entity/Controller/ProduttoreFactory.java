@@ -16,3 +16,4 @@ public class ProduttoreFactory implements VenditoreFactory {
         return new Produttore(ID, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo);
     }
 }
+
