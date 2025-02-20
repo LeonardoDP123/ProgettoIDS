@@ -15,12 +15,12 @@ public class DistributoreTipicita extends Venditore {
     }
 
     @Override
-    public void inviaProdottoAlCuratore(Curatore curatore) {
+    public void inviaArticoloAlCuratore(Curatore curatore) {
 
     }
 
-    public Pacchetto creaPacchetto(int ID, String nome, String descrizione) {
-        Pacchetto pacchetto = new Pacchetto(ID, nome, descrizione);
+    public Pacchetto creaPacchetto(int ID, String nome, String descrizione, int quantitaDisponibile) {
+        Pacchetto pacchetto = new Pacchetto(ID, nome, descrizione, quantitaDisponibile);
         pacchetti.add(pacchetto);
         return pacchetto;
     }
@@ -45,11 +45,5 @@ public class DistributoreTipicita extends Venditore {
                 System.out.println(p);
             }
         }
-    }
-
-    @Override
-    public void mostraDettagli() {
-        System.out.println("Distributore: " + getNome() + " " + getCognome());
-        System.out.println("Pacchetti in vendita: " + pacchetti.size());
     }
 }

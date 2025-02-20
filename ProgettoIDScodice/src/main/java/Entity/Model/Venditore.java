@@ -1,31 +1,48 @@
 package Entity.Model;
 
-
-import Entity.Controller.Ruolo;
-
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class Venditore extends User {
-	public Venditore(int id, String username, String nome, String cognome, LocalDate dataDiNascita,
+public abstract class Venditore {
+	protected int ID;
+	protected String username;
+	protected String nome;
+	protected String cognome;
+	protected LocalDate dataDiNascita;
+	protected String numeroDiTelefono;
+	protected String indirizzo;
+	protected List<Articolo> articoli;
+
+	public Venditore(int ID, String username, String nome, String cognome, LocalDate dataDiNascita,
 					 String numeroDiTelefono, String indirizzo) {
-		super(id, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo, Ruolo.VENDITORE);
+		this.ID = ID;
+		this.username = username;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.dataDiNascita = dataDiNascita;
+		this.numeroDiTelefono = numeroDiTelefono;
+		this.indirizzo = indirizzo;
+		this.articoli = new ArrayList<>();
 	}
 
-	// Metodo concreto: Tutti i venditori possono modificare prodotti se lo desiderano
-	public void modificaProdotto(Prodotto prodotto, String nuovoNome, String nuovaDescrizione, int nuovaQuantita) {
-		prodotto.setNome(nuovoNome);
-		prodotto.setDescrizione(nuovaDescrizione);
-		prodotto.setQuantitaDisponibile(nuovaQuantita);
-		System.out.println("Prodotto modificato: " + prodotto.getNome());
+	public void modificaArticolo(Articolo articolo, String nuovoNome, String nuovaDescrizione, double nuovoPrezzo, int nuovaQuantita) {
+		articolo.modificaArticolo(nuovoNome, nuovaDescrizione, nuovoPrezzo, nuovaQuantita);
 	}
 
-	// Metodo per inviare SOLO i prodotti trasformati al Curatore
-	public abstract void inviaProdottoAlCuratore(Curatore curatore);
+	public void inviaArticoloAlCuratore(Curatore curatore) {
+		for (Articolo a : articoli) {
+			if (!a.isStato()) {
+				curatore.valutaArticolo(a);
+			}
+		}
+	}
 
-	@Override
-	public void mostraDettagli() {
-		System.out.println("Venditore: " + getNome() + " " + getCognome() +
-				" | Username: " + getUsername() + " | Telefono: " + getNumeroDiTelefono());
+	public void aggiungiArticolo(Articolo articolo) {
+		articoli.add(articolo);
+	}
+
+	public void rimuoviArticolo(Articolo articolo) {
+		articoli.remove(articolo);
 	}
 }
-

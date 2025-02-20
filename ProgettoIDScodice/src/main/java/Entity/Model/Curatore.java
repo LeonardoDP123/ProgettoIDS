@@ -4,60 +4,56 @@ import Entity.Controller.Ruolo;
 import java.time.LocalDate;
 
 
-public class Curatore extends User {
-    public Curatore(int ID, String username, String nome, String cognome,
-                    LocalDate dataDiNascita, String numeroDiTelefono, String indirizzo) {
-        super(ID, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo, Ruolo.CURATORE);
+public class Curatore {
+    private int ID;
+    private String username;
+    private String nome;
+    private String cognome;
+    private LocalDate dataDiNascita;
+    private String numeroDiTelefono;
+    private String indirizzo;
+
+    public Curatore(int ID, String username, String nome, String cognome, LocalDate dataDiNascita,
+                    String numeroDiTelefono, String indirizzo) {
+        this.ID = ID;
+        this.username = username;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.dataDiNascita = dataDiNascita;
+        this.numeroDiTelefono = numeroDiTelefono;
+        this.indirizzo = indirizzo;
     }
 
-    // Approva un prodotto solo se supera i controlli
-    public void valutaProdotto(Prodotto prodotto) {
-        if (prodotto.getQuantitaDisponibile() <= 0) {
-            System.out.println("Prodotto RIFIUTATO: " + prodotto.getNome() + " (Quantità insufficiente)");
+    public void valutaArticolo(Articolo articolo) {
+        if (articolo.getQuantitaDisponibile() <= 0) {
+            System.out.println("Articolo RIFIUTATO: " + articolo.getNome() + " (Quantità insufficiente)");
             return;
         }
-        if (prodotto.getNome() == null || prodotto.getNome().trim().isEmpty()) {
-            System.out.println("Prodotto RIFIUTATO: Nome non valido");
+        if (articolo.getNome() == null || articolo.getNome().trim().isEmpty()) {
+            System.out.println("Articolo RIFIUTATO: Nome non valido");
             return;
         }
-        if (prodotto.getDescrizione() == null || prodotto.getDescrizione().trim().length() < 5) {
-            System.out.println("Prodotto RIFIUTATO: " + prodotto.getNome() + " (Descrizione troppo breve)");
-            return;
-        }
-
-        prodotto.approvaProdotto();
-        System.out.println("Prodotto APPROVATO: " + prodotto.getNome());
-    }
-
-    // Approva un pacchetto solo se è valido
-    public void valutaPacchetto(Pacchetto pacchetto) {
-        if (pacchetto.getProdotti().isEmpty()) {
-            System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Non contiene prodotti)");
+        if (articolo.getDescrizione() == null || articolo.getDescrizione().trim().length() < 5) {
+            System.out.println("Articolo RIFIUTATO: " + articolo.getNome() + " (Descrizione troppo breve)");
             return;
         }
 
-        if (pacchetto.getQuantitaDisponibile() <= 0) {
-            System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Quantità insufficiente)");
-            return;
-        }
-
-        for (Prodotto prodotto : pacchetto.getProdotti()) {
-            if (!prodotto.isStato()) {
-                System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Contiene prodotti non approvati)");
+        // Se l'articolo è un pacchetto, controlliamo il contenuto
+        if (articolo instanceof Pacchetto) {
+            Pacchetto pacchetto = (Pacchetto) articolo;
+            if (pacchetto.getPacchetti().isEmpty()) {
+                System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Non contiene articoli)");
                 return;
+            }
+            for (Articolo a : pacchetto.getPacchetti()) {
+                if (!a.isStato()) {
+                    System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Contiene articoli non approvati)");
+                    return;
+                }
             }
         }
 
-        pacchetto.approvaPacchetto();
-        System.out.println("Pacchetto APPROVATO: " + pacchetto.getNome());
-    }
-
-
-
-    @Override
-    public void mostraDettagli() {
-        System.out.println("Curatore: " + getNome() + " " + getCognome() +
-                " | Username: " + getUsername() +
-                " | Ruolo: " + getRuolo());
+        articolo.approvaArticolo();
+        System.out.println("Articolo APPROVATO: " + articolo.getNome());
     }
 }

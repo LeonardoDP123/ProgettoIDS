@@ -25,40 +25,36 @@ public class Trasformatore extends Venditore {
         strategieTrasformazione.put(categoria, strategia);
     }
 
-
     public void riceviProdotto(Prodotto prodotto) {
         prodottiCaricati.add(prodotto);
         System.out.println("Prodotto ricevuto dal Produttore: " + prodotto.getNome());
     }
 
-
-
     public Prodotto trasformaProdotto(int prodottoID, double nuovoPrezzo) {
-        Prodotto prodottoBase = trovaProdotto(prodottoID);
-        if (prodottoBase == null) {
+        Prodotto prodotto = trovaProdotto(prodottoID);
+        if (prodotto == null) {
             System.out.println("Il prodotto non esiste o non è stato ricevuto.");
             return null;
         }
 
-        StrategiaTrasformazione strategia = strategieTrasformazione.get(prodottoBase.getCategoria());
+        StrategiaTrasformazione strategia = strategieTrasformazione.get(prodotto.getCategoria());
         if (strategia != null) {
-            Prodotto prodottoTrasformato = strategia.trasforma(prodottoBase, nuovoPrezzo);
-            prodottiCaricati.remove(prodottoBase);
+            Prodotto prodottoTrasformato = strategia.trasforma(prodotto, nuovoPrezzo);
+            prodottiCaricati.remove(prodotto);
             prodottiTrasformati.add(prodottoTrasformato);
             System.out.println("Prodotto trasformato: " + prodottoTrasformato.getNome());
             return prodottoTrasformato;
         } else {
-            System.out.println("Nessuna strategia di trasformazione disponibile per la categoria: " + prodottoBase.getCategoria());
+            System.out.println("Nessuna strategia di trasformazione disponibile per la categoria: " + prodotto.getCategoria());
             return null;
         }
     }
-
 
     public void inviaProdottoAlCuratore(Curatore curatore) {
         System.out.println("Il Trasformatore sta inviando prodotti trasformati al Curatore...");
         for (Prodotto p : prodottiTrasformati) {
             if (!p.isStato()) {
-                curatore.valutaProdotto(p);
+                curatore.valutaArticolo(p);
             }
         }
     }
@@ -70,19 +66,7 @@ public class Trasformatore extends Venditore {
         return null;
     }
 
-    public void mostraProdottiCaricati() {
-        if (prodottiCaricati.isEmpty()) {
-            System.out.println("Nessun prodotto trasformato disponibile.");
-        } else {
-            prodottiCaricati.forEach(System.out::println);
-        }
-    }
 
-    public void mostraProdottiTrasformati() {
-        if (prodottiTrasformati.isEmpty()) {
-            System.out.println("Nessun prodotto trasformato disponibile.");
-        } else {
-            prodottiTrasformati.forEach(System.out::println);
-        }
-    }
+
 }
+

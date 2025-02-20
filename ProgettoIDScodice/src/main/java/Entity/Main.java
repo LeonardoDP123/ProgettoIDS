@@ -1,11 +1,11 @@
 package Entity;
 
 import Entity.Model.Curatore;
-import Entity.Venditore;
-import Util.Enum.ruolo;
+
+
 import java.util.Date;
 import java.util.Scanner;
-
+/*
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -53,4 +53,4 @@ public class Main {
             }
         }
     }
-}
+}*/
