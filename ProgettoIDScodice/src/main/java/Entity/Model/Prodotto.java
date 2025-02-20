@@ -1,13 +1,20 @@
 package Entity.Model;
 
 import Entity.Controller.Categoria;
+import Entity.Controller.MetodoColtivazione;
+import Entity.Controller.Certificazione;
 
 public class Prodotto extends Articolo {
 	private Categoria categoria;
+	private MetodoColtivazione metodoColtivazione;
+	private Certificazione certificazione;
 
-	public Prodotto(int ID, String nome, String descrizione, double prezzo, Categoria categoria, int quantitaDisponibile) {
+	public Prodotto(int ID, String nome, String descrizione, double prezzo, Categoria categoria,
+					int quantitaDisponibile, MetodoColtivazione metodoColtivazione, Certificazione certificazione) {
 		super(ID, nome, descrizione, prezzo, quantitaDisponibile);
 		this.categoria = categoria;
+		this.metodoColtivazione = metodoColtivazione;
+		this.certificazione = certificazione;
 	}
 
 	public Categoria getCategoria() {
@@ -16,5 +23,21 @@ public class Prodotto extends Articolo {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public MetodoColtivazione getMetodoColtivazione() {
+		return metodoColtivazione;
+	}
+
+	public void setMetodoColtivazione(MetodoColtivazione metodoColtivazione) {
+		this.metodoColtivazione = metodoColtivazione;
+	}
+
+	public Certificazione getCertificazione() {
+		return certificazione;
+	}
+
+	public void setCertificazione(Certificazione certificazione) {
+		this.certificazione = certificazione;
 	}
 }

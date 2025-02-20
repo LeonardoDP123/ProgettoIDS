@@ -4,6 +4,7 @@ package Entity.Model;
 import Entity.Controller.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Classe astratta per un utente generico.
