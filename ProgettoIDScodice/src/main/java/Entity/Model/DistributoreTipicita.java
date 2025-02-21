@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DistributoreTipicita extends Venditore {
-    private List<Prodotto> prodottiCaricati;
+    private List<Prodotto> prodottiCaricati; //lista dei prodotti inviati dal produttore
 
     public DistributoreTipicita(int ID, String username, String nome, String cognome,
                                 LocalDate dataDiNascita, String numeroDiTelefono, String indirizzo) {
@@ -29,10 +29,10 @@ public class DistributoreTipicita extends Venditore {
 
     public void aggiungiProdottoAlPacchetto(Pacchetto pacchetto, Prodotto prodotto) {
         if (!prodottiCaricati.contains(prodotto)) {
-            System.out.println("Errore: Il prodotto " + prodotto.getNome() + " non è stato caricato nel distributore.");
+            System.out.println("Errore: Il prodotto " + prodotto.getNome() + " non è stato caricato dal distributore.");
             return;
         }
-        pacchetto.getProdotti().add(prodotto);  // accesso diretto alla lista
+        pacchetto.getProdotti().add(prodotto);
         prodottiCaricati.remove(prodotto);
         System.out.println("Prodotto " + prodotto.getNome() + " aggiunto al pacchetto " + pacchetto.getNome());
     }
@@ -43,7 +43,7 @@ public class DistributoreTipicita extends Venditore {
             pacchetto.setPrezzo(prezzo);
             System.out.println("Pacchetto completato: " + pacchetto.getNome() + " con prezzo: " + prezzo);
         } else {
-            System.out.println("Errore: Il pacchetto non appartiene al distributore.");
+            System.out.println("Errore");
         }
     }
 

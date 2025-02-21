@@ -15,6 +15,12 @@ public class Produttore extends Venditore {
 
 	public Prodotto creaProdotto(int ID, String nome, String descrizione, double prezzo, Categoria categoria,
 								 int quantitaDisponibile, MetodoColtivazione metodoColtivazione, Certificazione certificazione) {
+
+		if (!Categoria.isPrimaryCategory(categoria)) {
+			System.out.println("Errore: Il produttore può creare solo prodotti di categorie primarie. Categoria non valida: " + categoria);
+			return null;
+		}
+
 		Prodotto nuovoProdotto = new Prodotto(ID, nome, descrizione, prezzo, categoria, quantitaDisponibile, metodoColtivazione, certificazione);
 		aggiungiArticolo(nuovoProdotto);
 		System.out.println("Prodotto creato: " + nuovoProdotto.getNome() +
@@ -23,17 +29,27 @@ public class Produttore extends Venditore {
 		return nuovoProdotto;
 	}
 
-public void inviaProdottoAlTrasformatore(Trasformatore trasformatore, Prodotto prodotto) {
-		if (!getArticoli().contains(prodotto)) {
-			System.out.println("Errore: Il prodotto non appartiene al produttore.");
+	public void inviaProdottoAlTrasformatore(Trasformatore trasformatore, int prodottoID) {
+		Prodotto prodotto = trovaProdotto(prodottoID);
+
+		if (prodotto == null) {
+			System.out.println("Errore: Il prodotto con ID " + prodottoID + " non appartiene al produttore.");
 			return;
 		}
-		if (prodotto instanceof Prodotto) {
-			rimuoviArticolo(prodotto);
-			trasformatore.riceviProdotto(prodotto);
-			System.out.println("Prodotto inviato al trasformatore: " + prodotto.getNome());
-		} else {
-			System.out.println("Errore: Solo i prodotti possono essere inviati al trasformatore.");
-		}
+
+		rimuoviArticolo(prodotto); // Rimuove il prodotto dalla lista del produttore
+		trasformatore.riceviProdotto(prodotto); // Lo invia al trasformatore
+		System.out.println("Prodotto inviato al trasformatore: " + prodotto.getNome());
 	}
+
+	// Metodo privato per cercare il prodotto per ID
+	private Prodotto trovaProdotto(int ID) {
+		for (Articolo articolo : getArticoli()) {
+			if (articolo instanceof Prodotto && articolo.getID() == ID) {
+				return (Prodotto) articolo;
+			}
+		}
+		return null;
+	}
+
 }

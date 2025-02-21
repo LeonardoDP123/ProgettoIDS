@@ -1,7 +1,7 @@
 package Entity.Controller;
 public enum Categoria {
     // categorie primarie utilizzate sia dal produttore che dal trasformatore
-    LATTICINI,
+    LATTE,
     FRUTTA,
     VERDURA,
     CARNE,
@@ -17,7 +17,7 @@ public enum Categoria {
     FARINE;
 
     public static boolean isPrimaryCategory(Categoria categoria) {
-        return categoria == LATTICINI || categoria == FRUTTA || categoria == VERDURA
+        return categoria == LATTE || categoria == FRUTTA || categoria == VERDURA
                 || categoria == CARNE || categoria == PESCE
                 || categoria == CEREALI;
     }

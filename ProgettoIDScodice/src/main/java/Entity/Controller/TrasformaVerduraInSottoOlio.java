@@ -2,21 +2,21 @@ package Entity.Controller;
 
 import Entity.Model.*;
 
-public class TrasformaFruttaInSucco implements StrategiaTrasformazione {
+public class TrasformaVerduraInSottoOlio implements StrategiaTrasformazione {
 
     @Override
     public Prodotto trasforma(Prodotto prodottoBase, double nuovoPrezzo) {
-        if (prodottoBase.getCategoria() != Categoria.FRUTTA) {
-            System.out.println("Errore: Il prodotto non è frutta.");
+        if (prodottoBase.getCategoria() != Categoria.VERDURA) {
+            System.out.println("Errore: Il prodotto non è verdura.");
             return null;
         }
 
         return new Prodotto(
                 prodottoBase.getID(),
-                "Succo di " + prodottoBase.getNome(),
-                "Succo ottenuto da " + prodottoBase.getNome(),
+                prodottoBase.getNome() + " sott'olio",
+                "Verdura sott'olio derivata da " + prodottoBase.getNome(),
                 nuovoPrezzo,
-                Categoria.BEVANDE,
+                Categoria.SOTTO_OLIO,
                 prodottoBase.getQuantitaDisponibile(),
                 prodottoBase.getMetodoColtivazione(),
                 prodottoBase.getCertificazione()

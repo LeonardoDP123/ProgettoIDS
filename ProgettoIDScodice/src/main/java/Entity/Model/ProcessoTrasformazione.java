@@ -1,7 +1,7 @@
 package Entity.Model;
 
 public class ProcessoTrasformazione {
-	private String descrizione;
+/*	private String descrizione;
 
 	public ProcessoTrasformazione(String descrizione) {
 
@@ -15,5 +15,5 @@ public class ProcessoTrasformazione {
 	@Override
 	public String toString() {
 		return "Processo: " + descrizione;
-	}
+	} */
 }

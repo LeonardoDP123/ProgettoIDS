@@ -6,15 +6,21 @@ import java.util.*;
 
 public class Trasformatore extends Venditore {
     private Map<Categoria, StrategiaTrasformazione> strategieTrasformazione;
-    private List<Prodotto> prodottiCaricati;
+    private List<Prodotto> prodottiCaricati; //lista dei prodotti inviati dal produttore
 
     public Trasformatore(int ID, String username, String nome, String cognome, LocalDate dataDiNascita,
                          String numeroDiTelefono, String indirizzo) {
         super(ID, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo, Ruolo.TRASFORMATORE);
-        this.strategieTrasformazione = new HashMap<>();
         this.prodottiCaricati = new ArrayList<>();
-    }
 
+        this.strategieTrasformazione = new HashMap<>();
+        this.strategieTrasformazione.put(Categoria.LATTE, new TrasformaLatteInFormaggio());
+        this.strategieTrasformazione.put(Categoria.FRUTTA, new TrasformaFruttaInSucco());
+        this.strategieTrasformazione.put(Categoria.VERDURA, new TrasformaVerduraInSottoOlio());
+        this.strategieTrasformazione.put(Categoria.CARNE, new TrasformaCarneInEssiccati());
+        this.strategieTrasformazione.put(Categoria.PESCE, new TrasformaPesceInAffumicati());
+        this.strategieTrasformazione.put(Categoria.CEREALI, new TrasformaCerealiInFarine());
+    }
 
     public void riceviProdotto(Prodotto prodotto) {
         prodottiCaricati.add(prodotto);
@@ -28,16 +34,18 @@ public class Trasformatore extends Venditore {
             return null;
         }
 
-        Prodotto prodottoTrasformato = null;
+        StrategiaTrasformazione strategia = strategieTrasformazione.get(prodottoBase.getCategoria());
 
-        switch (prodottoBase.getCategoria()) {
-            case LATTICINI:
-                prodottoTrasformato = new TrasformaLatteInFormaggio().trasforma(prodottoBase, nuovoPrezzo);
-                break;
-            // Puoi aggiungere altri case per altre categorie in futuro
-            default:
-                System.out.println("Errore: Nessuna strategia disponibile per la categoria: " + prodottoBase.getCategoria());
-                return null;
+        if (strategia == null) {
+            System.out.println("Errore: Nessuna strategia disponibile per la categoria: " + prodottoBase.getCategoria());
+            return null;
+        }
+
+        Prodotto prodottoTrasformato = strategia.trasforma(prodottoBase, nuovoPrezzo);
+
+        if (prodottoTrasformato == null) {
+            System.out.println("Errore durante la trasformazione.");
+            return null;
         }
 
         prodottiCaricati.remove(prodottoBase);
