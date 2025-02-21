@@ -1,7 +1,5 @@
-package Entity.Controller;
+package Entity.Model;
 
-import Entity.Model.Trasformatore;
-import Entity.Model.Venditore;
 import java.time.LocalDate;
 
 public class TrasformatoreFactory implements VenditoreFactory {

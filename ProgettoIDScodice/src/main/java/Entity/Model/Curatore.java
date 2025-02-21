@@ -1,6 +1,5 @@
 package Entity.Model;
 
-import Entity.Controller.Ruolo;
 import java.time.LocalDate;
 
 
@@ -12,9 +11,10 @@ public class Curatore {
     private LocalDate dataDiNascita;
     private String numeroDiTelefono;
     private String indirizzo;
+    private Marketplace marketplace;
 
     public Curatore(int ID, String username, String nome, String cognome, LocalDate dataDiNascita,
-                    String numeroDiTelefono, String indirizzo) {
+                    String numeroDiTelefono, String indirizzo, Marketplace marketplace) {
         this.ID = ID;
         this.username = username;
         this.nome = nome;
@@ -22,6 +22,8 @@ public class Curatore {
         this.dataDiNascita = dataDiNascita;
         this.numeroDiTelefono = numeroDiTelefono;
         this.indirizzo = indirizzo;
+        this.marketplace = marketplace;
+
     }
 
     public void valutaArticolo(Articolo articolo) {
@@ -41,11 +43,11 @@ public class Curatore {
         // Se l'articolo è un pacchetto, controlliamo il contenuto
         if (articolo instanceof Pacchetto) {
             Pacchetto pacchetto = (Pacchetto) articolo;
-            if (pacchetto.getPacchetti().isEmpty()) {
+            if (pacchetto.getProdotti().isEmpty()) {
                 System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Non contiene articoli)");
                 return;
             }
-            for (Articolo a : pacchetto.getPacchetti()) {
+            for (Articolo a : pacchetto.getProdotti()) {
                 if (!a.isStato()) {
                     System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Contiene articoli non approvati)");
                     return;
@@ -54,6 +56,7 @@ public class Curatore {
         }
 
         articolo.approvaArticolo();
+        marketplace.aggiungiArticolo(articolo);
         System.out.println("Articolo APPROVATO: " + articolo.getNome());
     }
 }

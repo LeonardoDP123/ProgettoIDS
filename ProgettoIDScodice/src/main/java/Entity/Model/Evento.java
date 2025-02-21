@@ -1,19 +1,28 @@
 package Entity.Model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public abstract class Evento {
+    protected int ID;
+    protected String nome;
+    protected LocalDate data;
+    protected String luogo;
+    protected String descrizione;
 
-	private int ID;
-	private String nome;
-	private String descrizione;
-	private Date dataInizio;
-	private Date dataFine;
-	private String luogo;
+    public Evento(int ID, String nome, LocalDate data, String luogo, String descrizione) {
+        this.ID = ID;
+        this.nome = nome;
+        this.data = data;
+        this.luogo = luogo;
+        this.descrizione = descrizione;
+    }
 
-	public void visualizzaInfoEvento() {
-		// TODO - implement Evento.visualizzaInfoEvento
-		throw new UnsupportedOperationException();
-	}
+    public int getID() { return ID; }
+    public String getNome() { return nome; }
+    public LocalDate getData() { return data; }
+    public String getLuogo() { return luogo; }
+    public String getDescrizione() { return descrizione; }
 
+    @Override
+    public abstract String toString();
 }

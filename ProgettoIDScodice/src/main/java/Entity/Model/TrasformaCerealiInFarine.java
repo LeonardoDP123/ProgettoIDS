@@ -1,6 +1,4 @@
-package Entity.Controller;
-
-import Entity.Model.*;
+package Entity.Model;
 
 public class TrasformaCerealiInFarine implements StrategiaTrasformazione {
     public Prodotto trasforma(Prodotto prodottoBase, double nuovoPrezzo) {

@@ -1,7 +1,5 @@
-package Entity.Controller;
+package Entity.Model;
 
-import Entity.Model.DistributoreTipicita;
-import Entity.Model.Venditore;
 import java.time.LocalDate;
 
 public class DistributoreFactory implements VenditoreFactory {

@@ -1,9 +1,5 @@
 package Entity.Model;
 
-import Entity.Controller.Categoria;
-import Entity.Controller.MetodoColtivazione;
-import Entity.Controller.Certificazione;
-
 public class Prodotto extends Articolo {
 	private Categoria categoria;
 	private MetodoColtivazione metodoColtivazione;

@@ -5,9 +5,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import Entity.Controller.Ruolo;
-import Entity.Model.Articolo;
-
 public abstract class Venditore {
 	private int ID;
 	private String username;

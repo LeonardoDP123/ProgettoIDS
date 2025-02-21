@@ -1,17 +1,26 @@
 package Entity.Model;
 
-import Entity.Model.Evento;
-
-
+import java.time.LocalDate;
 
 public class Fiera extends Evento {
+	private int numeroEspositori;
 
-	private int ID;
-	private String tipologia;
-
-	public void visualizzaInfoEvento() {
-		// TODO - implement Fiera.visualizzaInfoEvento
-		throw new UnsupportedOperationException();
+	public Fiera(int ID, String nome, LocalDate data, String luogo, String descrizione, int numeroEspositori) {
+		super(ID, nome, data, luogo, descrizione);
+		this.numeroEspositori = numeroEspositori;
 	}
 
+	public int getNumeroEspositori() { return numeroEspositori; }
+
+	@Override
+	public String toString() {
+		return "Fiera{" +
+				"ID=" + ID +
+				", nome='" + nome + '\'' +
+				", data=" + data +
+				", luogo='" + luogo + '\'' +
+				", descrizione='" + descrizione + '\'' +
+				", numeroEspositori=" + numeroEspositori +
+				'}';
+	}
 }

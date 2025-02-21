@@ -1,6 +1,4 @@
-package Entity.Controller;
-
-import Entity.Model.*;
+package Entity.Model;
 
 public class TrasformaCarneInEssiccati implements StrategiaTrasformazione {
     @Override

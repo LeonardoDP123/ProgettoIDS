@@ -1,8 +1,6 @@
 package Entity.Model;
 
 
-import Entity.Controller.*;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,7 +15,7 @@ public abstract class User {
 	private LocalDate dataDiNascita;
 	private String numeroDiTelefono;
 	private String indirizzo;
-	private Ruolo ruolo; //
+	private Ruolo ruolo;
 
 	public User(int ID, String username, String nome, String cognome, LocalDate dataDiNascita,
 				String numeroDiTelefono, String indirizzo, Ruolo ruolo) {
@@ -34,9 +32,16 @@ public abstract class User {
 	public abstract void mostraDettagli();
 
 	public void visualizzaArticoli(Marketplace marketplace) {
-		ArticoloIterator iterator = marketplace.getIterator();
-		while (iterator.hasNext()) {
-			System.out.println(iterator.next());
+		List<Articolo> articoli = marketplace.getArticoli();
+
+		if (articoli.isEmpty()) {
+			System.out.println("Nessun articolo disponibile nel marketplace.");
+			return;
+		}
+
+		System.out.println("Articoli disponibili nel marketplace:");
+		for (Articolo articolo : articoli) {
+			System.out.println(articolo);
 		}
 	}
 

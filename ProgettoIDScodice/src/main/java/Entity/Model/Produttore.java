@@ -1,9 +1,5 @@
 package Entity.Model;
 
-import Entity.Controller.Categoria;
-import Entity.Controller.Certificazione;
-import Entity.Controller.MetodoColtivazione;
-import Entity.Controller.Ruolo;
 import java.time.LocalDate;
 
 public class Produttore extends Venditore {

@@ -1,4 +1,4 @@
-package Entity.Controller;
+package Entity.Model;
 
 public enum Certificazione {
 	DOC,
