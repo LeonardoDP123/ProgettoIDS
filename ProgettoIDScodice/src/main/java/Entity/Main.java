@@ -8,10 +8,10 @@ public class Main {
     public static void main(String[] args) {
 
         // Creazione del Marketplace
-        Marketplace marketplace = new Marketplace();
+        Marketplace marketplace = Marketplace.getInstance();
 
         // Creazione del Curatore
-        Curatore curatore = new Curatore(1, "curatore123", "Luca", "Rossi", LocalDate.of(1980, 5, 10), "3331234567", "Via Roma 10", marketplace);
+        Curatore curatore = new Curatore(1, "curatore123", "Luca", "Rossi", LocalDate.of(1980, 5, 10), "3331234567", "Via Roma 10");
 
         // Utilizzo dei Factory per creare i Venditori
         ProduttoreFactory produttoreFactory = new ProduttoreFactory();

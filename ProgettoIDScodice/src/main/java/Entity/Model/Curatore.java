@@ -1,30 +1,37 @@
 package Entity.Model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Curatore {
-    private int ID;
-    private String username;
-    private String nome;
-    private String cognome;
-    private LocalDate dataDiNascita;
-    private String numeroDiTelefono;
-    private String indirizzo;
-    private Marketplace marketplace;
+public class Curatore extends UtenteGenerico {
+    private final Marketplace marketplace;
+    private final List<Articolo> articoliDaValutare;
 
     public Curatore(int ID, String username, String nome, String cognome, LocalDate dataDiNascita,
-                    String numeroDiTelefono, String indirizzo, Marketplace marketplace) {
-        this.ID = ID;
-        this.username = username;
-        this.nome = nome;
-        this.cognome = cognome;
-        this.dataDiNascita = dataDiNascita;
-        this.numeroDiTelefono = numeroDiTelefono;
-        this.indirizzo = indirizzo;
-        this.marketplace = marketplace;
+                    String numeroDiTelefono, String indirizzo) {
+        super(ID, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo, Ruolo.CURATORE);
+        this.marketplace = Marketplace.getInstance();
+        this.articoliDaValutare = new ArrayList<>();
     }
 
-    public void valutaArticolo(Articolo articolo) {
+    public void aggiungiArticoloDaValutare(Articolo articolo) {
+        articoliDaValutare.add(articolo);
+        System.out.println("Articolo aggiunto alla lista da valutare: " + articolo.getNome());
+    }
+
+    public void approvaArticoli() {
+        System.out.println("Inizio valutazione degli articoli...");
+
+        for (Articolo articolo : articoliDaValutare) {
+            valutaArticolo(articolo);
+        }
+
+        articoliDaValutare.clear();
+        System.out.println("Valutazione completata e lista svuotata.");
+    }
+
+    private void valutaArticolo(Articolo articolo) {
         if (articolo.getQuantitaDisponibile() <= 0) {
             System.out.println("Articolo RIFIUTATO: " + articolo.getNome() + " (Quantità insufficiente)");
             return;
@@ -38,17 +45,12 @@ public class Curatore {
             return;
         }
 
-        // Controllo specifico per Pacchetto
-        if (articolo instanceof Pacchetto) {
-            Pacchetto pacchetto = (Pacchetto) articolo;
-
-            // Verifica se il pacchetto è completato
+        if (articolo instanceof Pacchetto pacchetto) {
             if (!pacchetto.isCompletato()) {
-                System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Il pacchetto non è ancora completato)");
+                System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Non completato)");
                 return;
             }
 
-            // Verifica se il pacchetto ha prodotti e che tutti siano approvati
             if (pacchetto.getProdotti().isEmpty()) {
                 System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Non contiene articoli)");
                 return;
@@ -62,9 +64,14 @@ public class Curatore {
             }
         }
 
-        // Se tutti i controlli sono superati, il curatore approva l'articolo
         articolo.approvaArticolo();
         marketplace.aggiungiArticolo(articolo);
         System.out.println("Articolo APPROVATO e aggiunto al marketplace: " + articolo.getNome());
+    }
+
+    @Override
+    public void mostraDettagli() {
+        System.out.println("Curatore: " + getNome() + " " + getCognome() +
+                " | Username: " + getUsername());
     }
 }

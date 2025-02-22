@@ -25,41 +25,27 @@ public class Trasformatore extends Venditore {
 
     public void riceviProdotto(Prodotto prodotto) {
         prodottiCaricati.add(prodotto);
-        System.out.println(" Prodotto ricevuto per trasformazione: " + prodotto.getNome());
+        System.out.println("Prodotto ricevuto per trasformazione: " + prodotto.getNome());
     }
 
     public Prodotto trasformaProdotto(int prodottoID, double nuovoPrezzo) {
         Prodotto prodottoBase = trovaProdotto(prodottoID);
         if (prodottoBase == null) {
-            System.out.println(" Errore: Il prodotto con ID " + prodottoID + " non esiste o non è stato ricevuto.");
+            System.out.println("Errore: Il prodotto con ID " + prodottoID + " non esiste o non è stato ricevuto.");
             return null;
         }
 
         StrategiaTrasformazione strategia = strategieTrasformazione.get(prodottoBase.getCategoria());
         if (strategia == null) {
-            System.out.println(" Errore: Nessuna strategia di trasformazione per la categoria " + prodottoBase.getCategoria());
+            System.out.println("Errore: Nessuna strategia di trasformazione per la categoria " + prodottoBase.getCategoria());
             return null;
         }
 
         Prodotto prodottoTrasformato = strategia.trasforma(prodottoBase, nuovoPrezzo);
         prodottiCaricati.remove(prodottoBase);
         aggiungiArticolo(prodottoTrasformato);
-        System.out.println(" Prodotto trasformato con successo: " + prodottoTrasformato.getNome());
+        System.out.println("Prodotto trasformato con successo: " + prodottoTrasformato.getNome());
         return prodottoTrasformato;
-    }
-
-    public void inviaArticoloAlCuratore(Curatore curatore) {
-        List<Articolo> articoliDaInviare = new ArrayList<>();
-        for (Articolo articolo : getArticoli()) {
-            if (articolo instanceof Prodotto && !articolo.isStato()) {
-                articoliDaInviare.add(articolo);
-            }
-        }
-        for (Articolo articolo : articoliDaInviare) {
-            curatore.aggiungiArticoloInAttesa(articolo);
-            rimuoviArticolo(articolo);
-            System.out.println(" Prodotto trasformato inviato al curatore: " + articolo.getNome());
-        }
     }
 
     private Prodotto trovaProdotto(int ID) {
@@ -67,5 +53,17 @@ public class Trasformatore extends Venditore {
             if (p.getID() == ID) return p;
         }
         return null;
+    }
+
+    // Usa direttamente il metodo aggiornato di Venditore
+    @Override
+    public void inviaArticoloAlCuratore(Curatore curatore) {
+        super.inviaArticoloAlCuratore(curatore);
+    }
+
+    // Metodo per rimuovere un articolo già approvato dal Marketplace
+    @Override
+    public void rimuoviArticoloDaMarketplace(int ID) {
+        super.rimuoviArticoloDaMarketplace(ID);
     }
 }

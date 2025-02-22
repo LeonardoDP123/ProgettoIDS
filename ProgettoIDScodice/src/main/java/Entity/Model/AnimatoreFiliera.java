@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnimatoreFiliera extends User {
+public class AnimatoreFiliera extends UtenteGenerico {
     private List<Evento> eventi;
 
     public AnimatoreFiliera(int ID, String username, String nome, String cognome, LocalDate dataDiNascita,

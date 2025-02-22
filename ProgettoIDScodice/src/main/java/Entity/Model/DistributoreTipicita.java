@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DistributoreTipicita extends Venditore {
-    private List<Prodotto> prodottiCaricati; //lista dei prodotti inviati dal produttore
+    private List<Prodotto> prodottiCaricati;
 
     public DistributoreTipicita(int ID, String username, String nome, String cognome,
                                 LocalDate dataDiNascita, String numeroDiTelefono, String indirizzo) {
@@ -48,19 +48,7 @@ public class DistributoreTipicita extends Venditore {
             pacchetto.setPrezzo(prezzo);
             System.out.println("Pacchetto completato: " + pacchetto.getNome() + " con prezzo: " + prezzo);
         } else {
-            System.out.println("Errore");
-        }
-    }
-
-    @Override
-    public void inviaArticoloAlCuratore(Curatore curatore) {
-        for (Articolo a : getArticoli()) {
-            if (a instanceof Pacchetto) {
-                Pacchetto p = (Pacchetto) a;
-                if (p.isCompletato() && !p.isStato()) {
-                    curatore.valutaArticolo(p);
-                }
-            }
+            System.out.println("Errore: Pacchetto non trovato.");
         }
     }
 
@@ -68,15 +56,17 @@ public class DistributoreTipicita extends Venditore {
         if (prodottiCaricati.isEmpty()) {
             System.out.println("Nessun prodotto caricato disponibile.");
         } else {
-            prodottiCaricati.forEach(System.out::println);
+            for (Prodotto prodotto : prodottiCaricati) {
+                System.out.println(prodotto);
+            }
         }
     }
 
     public void mostraPacchetti() {
         boolean hasPacchetti = false;
-        for (Articolo a : getArticoli()) {
-            if (a instanceof Pacchetto) {
-                System.out.println(a);
+        for (Articolo articolo : getArticoli()) {
+            if (articolo instanceof Pacchetto) {
+                System.out.println(articolo);
                 hasPacchetti = true;
             }
         }
@@ -84,5 +74,16 @@ public class DistributoreTipicita extends Venditore {
             System.out.println("Nessun pacchetto disponibile.");
         }
     }
-}
 
+    // Usa direttamente il metodo aggiornato di Venditore
+    @Override
+    public void inviaArticoloAlCuratore(Curatore curatore) {
+        super.inviaArticoloAlCuratore(curatore);
+    }
+
+    // Metodo per rimuovere un articolo già approvato dal Marketplace
+    @Override
+    public void rimuoviArticoloDaMarketplace(int ID) {
+        super.rimuoviArticoloDaMarketplace(ID);
+    }
+}

@@ -1,4 +1,5 @@
 package Entity.Model;
+
 public enum Categoria {
     // categorie primarie utilizzate sia dal produttore che dal trasformatore
     LATTE,

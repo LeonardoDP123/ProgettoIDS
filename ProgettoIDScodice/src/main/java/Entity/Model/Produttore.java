@@ -1,8 +1,6 @@
 package Entity.Model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Produttore extends Venditore {
 
@@ -21,7 +19,7 @@ public class Produttore extends Venditore {
 
 		Prodotto nuovoProdotto = new Prodotto(ID, nome, descrizione, prezzo, categoria, quantitaDisponibile, metodoColtivazione, certificazione);
 		aggiungiArticolo(nuovoProdotto);
-		System.out.println(" Prodotto creato: " + nuovoProdotto.getNome() +
+		System.out.println("Prodotto creato: " + nuovoProdotto.getNome() +
 				" | Metodo Coltivazione: " + metodoColtivazione +
 				" | Certificazione: " + certificazione);
 		return nuovoProdotto;
@@ -30,26 +28,12 @@ public class Produttore extends Venditore {
 	public void inviaProdottoAlTrasformatore(Trasformatore trasformatore, int prodottoID) {
 		Prodotto prodotto = trovaProdotto(prodottoID);
 		if (prodotto == null) {
-			System.out.println(" Errore: Il prodotto con ID " + prodottoID + " non appartiene al produttore.");
+			System.out.println("Errore: Il prodotto con ID " + prodottoID + " non appartiene al produttore.");
 			return;
 		}
 		rimuoviArticolo(prodotto);
 		trasformatore.riceviProdotto(prodotto);
-		System.out.println(" Prodotto inviato al trasformatore: " + prodotto.getNome());
-	}
-
-	public void inviaArticoloAlCuratore(Curatore curatore) {
-		List<Articolo> articoliDaInviare = new ArrayList<>();
-		for (Articolo articolo : getArticoli()) {
-			if (articolo instanceof Prodotto && !articolo.isStato()) {
-				articoliDaInviare.add(articolo);
-			}
-		}
-		for (Articolo articolo : articoliDaInviare) {
-			curatore.aggiungiArticoloInAttesa(articolo);
-			rimuoviArticolo(articolo);
-			System.out.println(" Prodotto inviato al curatore per valutazione: " + articolo.getNome());
-		}
+		System.out.println("Prodotto inviato al trasformatore: " + prodotto.getNome());
 	}
 
 	private Prodotto trovaProdotto(int ID) {
@@ -59,5 +43,17 @@ public class Produttore extends Venditore {
 			}
 		}
 		return null;
+	}
+
+	// Utilizza direttamente il metodo di Venditore
+	@Override
+	public void inviaArticoloAlCuratore(Curatore curatore) {
+		super.inviaArticoloAlCuratore(curatore);
+	}
+
+	// Metodo per rimuovere un articolo già approvato dal Marketplace
+	@Override
+	public void rimuoviArticoloDaMarketplace(int ID) {
+		super.rimuoviArticoloDaMarketplace(ID);
 	}
 }

@@ -1,13 +1,10 @@
 package Entity.Model;
 
-
-
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Acquirente extends User {
+public class Acquirente extends UtenteGenerico {
     private List<Articolo> storicoOrdini;
     private Carrello carrello;
 
@@ -27,6 +24,7 @@ public class Acquirente extends User {
             System.out.println("Il carrello è vuoto.");
             return;
         }
+
         for (Articolo articolo : carrello.getArticoli()) {
             Articolo articoloInMarketplace = marketplace.getArticoloByID(articolo.getID());
 
@@ -47,7 +45,6 @@ public class Acquirente extends User {
 
         carrello.svuotaCarrello();
     }
-
 
     public void visualizzaStoricoOrdini() {
         if (storicoOrdini.isEmpty()) {

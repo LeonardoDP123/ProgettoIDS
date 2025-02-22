@@ -1,5 +1,5 @@
 package Entity.Model;
-import Entity.Model.Articolo;
+
 import java.util.ArrayList;
 import java.util.List;
 

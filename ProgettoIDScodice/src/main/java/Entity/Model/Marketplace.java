@@ -4,10 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Marketplace {
+    private static volatile Marketplace instance;
     private List<Articolo> articoli;
 
-    public Marketplace() {
-        this.articoli = new ArrayList<>();
+    private Marketplace() {
+        articoli = new ArrayList<>();
+    }
+
+    public static Marketplace getInstance() {
+        if (instance == null) {
+            synchronized (Marketplace.class) {
+                if (instance == null) {
+                    instance = new Marketplace();
+                }
+            }
+        }
+        return instance;
     }
 
     public void aggiungiArticolo(Articolo articolo) {
@@ -38,17 +50,5 @@ public class Marketplace {
 
     public List<Articolo> getArticoli() {
         return articoli;
-    }
-
-    public void mostraArticoliDisponibili() {
-        if (articoli.isEmpty()) {
-            System.out.println("Nessun articolo disponibile nel marketplace.");
-            return;
-        }
-
-        System.out.println("Articoli disponibili nel marketplace:");
-        for (Articolo articolo : articoli) {
-            System.out.println(articolo);
-        }
     }
 }
