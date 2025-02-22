@@ -3,6 +3,7 @@ package Entity.Model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Acquirente extends UtenteGenerico {
     private List<Articolo> storicoOrdini;
@@ -25,24 +26,40 @@ public class Acquirente extends UtenteGenerico {
             return;
         }
 
-        for (Articolo articolo : carrello.getArticoli()) {
-            Articolo articoloInMarketplace = marketplace.getArticoloByID(articolo.getID());
+        for (Map.Entry<Integer, Integer> entry : carrello.getArticoli().entrySet()) {
+            int articoloID = entry.getKey();
+            int quantitaRichiesta = entry.getValue();
+
+            // Ottieni l'articolo dal Marketplace usando l'ID
+            Articolo articoloInMarketplace = marketplace.getArticoloByID(articoloID);
 
             if (articoloInMarketplace == null || !articoloInMarketplace.isStato()) {
-                System.out.println("Articolo non disponibile: " + articolo.getNome());
+                System.out.println("Articolo con ID " + articoloID + " non disponibile.");
                 continue;
             }
 
-            if (articoloInMarketplace.getQuantitaDisponibile() <= 0) {
-                System.out.println("Articolo esaurito: " + articolo.getNome());
+            if (articoloInMarketplace.getQuantitaDisponibile() < quantitaRichiesta) {
+                System.out.println("Quantità insufficiente per l'articolo con ID " + articoloID);
                 continue;
             }
 
-            articoloInMarketplace.setQuantitaDisponibile(articoloInMarketplace.getQuantitaDisponibile() - 1);
-            storicoOrdini.add(articoloInMarketplace);
-            System.out.println("Acquistato: " + articolo.getNome());
+            // Aggiorna la quantità nel Marketplace
+            int nuovaQuantita = articoloInMarketplace.getQuantitaDisponibile() - quantitaRichiesta;
+            marketplace.aggiornaQuantita(articoloInMarketplace, nuovaQuantita);
+
+            // Se la quantità diventa 0, rimuovi l'articolo dal marketplace
+            if (nuovaQuantita == 0) {
+                marketplace.rimuoviArticolo(articoloInMarketplace);
+            }
+
+            // Aggiungi l'articolo acquistato allo storico ordini
+            for (int i = 0; i < quantitaRichiesta; i++) {
+                storicoOrdini.add(articoloInMarketplace);
+            }
+            System.out.println("Acquistato: " + articoloInMarketplace.getNome() + " (Quantità: " + quantitaRichiesta + ")");
         }
 
+        // Svuota il carrello dopo l'acquisto
         carrello.svuotaCarrello();
     }
 

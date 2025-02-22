@@ -2,6 +2,7 @@ package Entity;
 
 import Entity.Model.*;
 import java.time.LocalDate;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -97,8 +98,32 @@ public class Main {
         distributore.inviaArticoliAlCuratore(curatore);
         curatore.approvaArticoli();
 
-        System.out.println("\n--- Marketplace (dopo aggiunta dei pacchetti)");
+        System.out.println("\n--- Marketplace (dopo aggiunta del pacchetto)");
         produttore.visualizzaArticoli();
+
+        Acquirente acquirente = new Acquirente(1, "acquirente1", "Mario", "Rossi", LocalDate.of(1990, 1, 1), "3334567890", "Via Milano 15");
+
+        // Aggiungi articoli al carrello
+        acquirente.getCarrello().aggiungiArticolo(103, 20);  // Aggiungi 5 unità di carne (ID 103)
+        acquirente.getCarrello().aggiungiArticolo(201,9); // Aggiungi 3 unità di un pacchetto (ID 201)
+
+        // Effettuare l'acquisto
+        acquirente.acquistaCarrello(marketplace);
+
+
+
+        // Visualizzare Marketplace dopo l'acquisto
+        System.out.println("\n--- Marketplace (dopo l'acquisto):");
+        for (Articolo articolo : marketplace.getArticoli()) {
+            System.out.println(articolo);
+        }
+
+        // Mostrare lo stato finale del carrello
+        System.out.println("\n--- Carrello dell'acquirente dopo l'acquisto:");
+        acquirente.getCarrello().isEmpty();
+
+
+
 
 
     }

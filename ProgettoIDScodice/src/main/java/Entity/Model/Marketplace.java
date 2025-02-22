@@ -39,16 +39,24 @@ public class Marketplace {
         }
     }
 
+    public List<Articolo> getArticoli() {
+        return articoli;
+    }
+
     public Articolo getArticoloByID(int ID) {
         for (Articolo articolo : articoli) {
             if (articolo.getID() == ID) {
                 return articolo;
             }
         }
-        return null;
+        return null; // Articolo non trovato
     }
 
-    public List<Articolo> getArticoli() {
-        return articoli;
+    public void aggiornaQuantita(Articolo articolo, int nuovaQuantita) {
+        articolo.setQuantitaDisponibile(nuovaQuantita);
+        if (nuovaQuantita == 0) {
+            rimuoviArticolo(articolo); // Rimuove l'articolo se la quantità è 0
+        }
     }
+
 }

@@ -33,7 +33,8 @@ public class Pacchetto extends Articolo {
 				", descrizione='" + getDescrizione() + '\'' +
 				", prezzo=" + getPrezzo() +
 				", stato=" + (isStato() ? "Approvato" : "Non approvato") +
-				", completato=" + (completato ? "Sì" : "No") +
+				", quantitaDisponibile=" + getQuantitaDisponibile() +
+				", completato=" + (completato ? "Si" : "No") +
 				", prodotti=" + prodotti.size() +
 				'}';
 	}
