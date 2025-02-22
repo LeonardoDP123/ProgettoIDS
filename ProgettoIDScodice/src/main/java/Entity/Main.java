@@ -1,8 +1,11 @@
 package Entity;
 
 import Entity.Model.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.time.LocalDate;
-import java.util.Map;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -122,9 +125,37 @@ public class Main {
         System.out.println("\n--- Carrello dell'acquirente dopo l'acquisto:");
         acquirente.getCarrello().isEmpty();
 
+        //connessione db
+        String url = "jdbc:mysql://localhost:3306/progetto_marketplace";
+        String user = "root";
+        String password = "RootPassword";
 
+        try {
+            Connection conn = DriverManager.getConnection(url, user, password);
+            System.out.println("Connessione al database riuscita!");
 
+            for (Articolo articolo : marketplace.getArticoli()) {
+                String sql = "INSERT INTO prodotto (ID, nome, descrizione, prezzo, quantita_disponibile, stato) VALUES (?, ?, ?, ?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE nome = VALUES(nome), descrizione = VALUES(descrizione), " +
+                        "prezzo = VALUES(prezzo), quantita_disponibile = VALUES(quantita_disponibile), stato = VALUES(stato)";
 
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, articolo.getID());
+                stmt.setString(2, articolo.getNome());
+                stmt.setString(3, articolo.getDescrizione());
+                stmt.setDouble(4, articolo.getPrezzo());
+                stmt.setInt(5, articolo.getQuantitaDisponibile());
+                stmt.setBoolean(6, articolo.isStato());
 
+                stmt.executeUpdate();
+                stmt.close();
+
+                System.out.println("Inserito/Aggiornato nel DB: " + articolo.getNome());
+            }
+
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
