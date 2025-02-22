@@ -57,8 +57,8 @@ public class Trasformatore extends Venditore {
 
     // Usa direttamente il metodo aggiornato di Venditore
     @Override
-    public void inviaArticoloAlCuratore(Curatore curatore) {
-        super.inviaArticoloAlCuratore(curatore);
+    public void inviaArticoliAlCuratore(Curatore curatore) {
+        super.inviaArticoliAlCuratore(curatore);
     }
 
     // Metodo per rimuovere un articolo già approvato dal Marketplace

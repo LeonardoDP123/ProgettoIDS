@@ -36,6 +36,17 @@ public class Produttore extends Venditore {
 		System.out.println("Prodotto inviato al trasformatore: " + prodotto.getNome());
 	}
 
+	public void inviaProdottoAlDistribuore(DistributoreTipicita distributoretipicita, int prodottoID) {
+		Prodotto prodotto = trovaProdotto(prodottoID);
+		if (prodotto == null) {
+			System.out.println("Errore: Il prodotto con ID " + prodottoID + " non appartiene al produttore.");
+			return;
+		}
+		rimuoviArticolo(prodotto);
+		distributoretipicita.riceviProdottoDaProduttore(prodotto);
+		System.out.println("Prodotto inviato al distributore: " + prodotto.getNome());
+	}
+
 	private Prodotto trovaProdotto(int ID) {
 		for (Articolo articolo : getArticoli()) {
 			if (articolo instanceof Prodotto && articolo.getID() == ID) {
@@ -47,8 +58,8 @@ public class Produttore extends Venditore {
 
 	// Utilizza direttamente il metodo di Venditore
 	@Override
-	public void inviaArticoloAlCuratore(Curatore curatore) {
-		super.inviaArticoloAlCuratore(curatore);
+	public void inviaArticoliAlCuratore(Curatore curatore) {
+		super.inviaArticoliAlCuratore(curatore);
 	}
 
 	// Metodo per rimuovere un articolo già approvato dal Marketplace

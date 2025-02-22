@@ -18,7 +18,7 @@ public abstract class Venditore extends UtenteGenerico {
 		articolo.modificaArticolo(nuovoNome, nuovaDescrizione, nuovoPrezzo, nuovaQuantita);
 	}
 
-	public void inviaArticoloAlCuratore(Curatore curatore) {
+	public void inviaArticoliAlCuratore(Curatore curatore) {
 		Iterator<Articolo> iterator = articoli.iterator();
 		while (iterator.hasNext()) {
 			Articolo articolo = iterator.next();

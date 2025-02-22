@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class DistributoreTipicita extends Venditore {
     private List<Prodotto> prodottiCaricati;
 
@@ -14,8 +19,12 @@ public class DistributoreTipicita extends Venditore {
     }
 
     public void riceviProdottoDaProduttore(Prodotto prodotto) {
-        prodottiCaricati.add(prodotto);
-        System.out.println("Prodotto ricevuto dal produttore: " + prodotto.getNome());
+        if (prodotto != null) {
+            prodottiCaricati.add(prodotto);
+            System.out.println("Prodotto ricevuto: " + prodotto.getNome() + " | Totale prodotti: " + prodottiCaricati.size());
+        } else {
+            System.out.println("Errore: Prodotto nullo ricevuto.");
+        }
     }
 
     public Pacchetto creaPacchetto(int ID, String nome, String descrizione, int quantitaDisponibile) {
@@ -33,23 +42,24 @@ public class DistributoreTipicita extends Venditore {
         }
 
         if (!prodottiCaricati.contains(prodotto)) {
-            System.out.println("Errore: Il prodotto " + prodotto.getNome() + " non è stato caricato nel distributore.");
+            System.out.println("Errore: Il prodotto " + prodotto.getNome() + " non è disponibile nel distributore.");
             return;
         }
 
         pacchetto.getProdotti().add(prodotto);
         prodottiCaricati.remove(prodotto);
-        System.out.println("Prodotto " + prodotto.getNome() + " aggiunto al pacchetto " + pacchetto.getNome());
+        System.out.println("Aggiunto al pacchetto: " + prodotto.getNome() + " | Prodotti nel pacchetto: " + pacchetto.getProdotti().size());
     }
 
     public void completaPacchetto(Pacchetto pacchetto, double prezzo) {
-        if (getArticoli().contains(pacchetto)) {
-            pacchetto.setCompletato(true);
-            pacchetto.setPrezzo(prezzo);
-            System.out.println("Pacchetto completato: " + pacchetto.getNome() + " con prezzo: " + prezzo);
-        } else {
-            System.out.println("Errore: Pacchetto non trovato.");
+        if (pacchetto.getProdotti().isEmpty()) {
+            System.out.println("Errore: Il pacchetto " + pacchetto.getNome() + " è vuoto!");
+            return;
         }
+
+        pacchetto.setCompletato(true);
+        pacchetto.setPrezzo(prezzo);
+        System.out.println("Pacchetto completato: " + pacchetto.getNome() + " con " + pacchetto.getProdotti().size() + " prodotti.");
     }
 
     public void mostraProdottiCaricati() {
@@ -75,13 +85,12 @@ public class DistributoreTipicita extends Venditore {
         }
     }
 
-    // Usa direttamente il metodo aggiornato di Venditore
     @Override
-    public void inviaArticoloAlCuratore(Curatore curatore) {
-        super.inviaArticoloAlCuratore(curatore);
+    public void inviaArticoliAlCuratore(Curatore curatore) {
+        super.inviaArticoliAlCuratore(curatore);
     }
 
-    // Metodo per rimuovere un articolo già approvato dal Marketplace
+
     @Override
     public void rimuoviArticoloDaMarketplace(int ID) {
         super.rimuoviArticoloDaMarketplace(ID);

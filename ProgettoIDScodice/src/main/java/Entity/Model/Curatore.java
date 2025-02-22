@@ -56,12 +56,6 @@ public class Curatore extends UtenteGenerico {
                 return;
             }
 
-            for (Articolo a : pacchetto.getProdotti()) {
-                if (!a.isStato()) {
-                    System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Contiene articoli non approvati)");
-                    return;
-                }
-            }
         }
 
         articolo.approvaArticolo();
