@@ -1,7 +1,7 @@
 package Entity.Model;
 
 
-import Entity.Carrello;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -2,11 +2,10 @@ package Entity.Model;
 
 import java.time.LocalDate;
 
-public class DistributoreFactory implements VenditoreFactory {
-
+public class DistributoreFactory implements VenditoreFactory<DistributoreTipicita> {
     @Override
-    public Venditore createVenditore(int ID, String username, String nome, String cognome,
-                                     LocalDate dataDiNascita, String numeroDiTelefono, String indirizzo) {
+    public DistributoreTipicita createVenditore(int ID, String username, String nome, String cognome,
+                                                LocalDate dataDiNascita, String numeroDiTelefono, String indirizzo) {
         return new DistributoreTipicita(ID, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo);
     }
 }

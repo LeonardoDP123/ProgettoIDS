@@ -2,7 +2,6 @@ package Entity.Model;
 
 import java.time.LocalDate;
 
-
 public class Curatore {
     private int ID;
     private String username;
@@ -23,7 +22,6 @@ public class Curatore {
         this.numeroDiTelefono = numeroDiTelefono;
         this.indirizzo = indirizzo;
         this.marketplace = marketplace;
-
     }
 
     public void valutaArticolo(Articolo articolo) {
@@ -40,13 +38,22 @@ public class Curatore {
             return;
         }
 
-        // Se l'articolo è un pacchetto, controlliamo il contenuto
+        // Controllo specifico per Pacchetto
         if (articolo instanceof Pacchetto) {
             Pacchetto pacchetto = (Pacchetto) articolo;
+
+            // Verifica se il pacchetto è completato
+            if (!pacchetto.isCompletato()) {
+                System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Il pacchetto non è ancora completato)");
+                return;
+            }
+
+            // Verifica se il pacchetto ha prodotti e che tutti siano approvati
             if (pacchetto.getProdotti().isEmpty()) {
                 System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Non contiene articoli)");
                 return;
             }
+
             for (Articolo a : pacchetto.getProdotti()) {
                 if (!a.isStato()) {
                     System.out.println("Pacchetto RIFIUTATO: " + pacchetto.getNome() + " (Contiene articoli non approvati)");
@@ -55,8 +62,9 @@ public class Curatore {
             }
         }
 
+        // Se tutti i controlli sono superati, il curatore approva l'articolo
         articolo.approvaArticolo();
         marketplace.aggiungiArticolo(articolo);
-        System.out.println("Articolo APPROVATO: " + articolo.getNome());
+        System.out.println("Articolo APPROVATO e aggiunto al marketplace: " + articolo.getNome());
     }
 }

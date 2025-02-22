@@ -1,56 +1,55 @@
+
 package Entity;
 
-import Entity.Model.Curatore;
+import Entity.Model.*;
+import java.time.LocalDate;
 
-
-import java.util.Date;
-import java.util.Scanner;
-/*
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        while(true) {
-            System.out.println("MENU PRINCIPALE");
-            System.out.println("1 - Entra come Acquirente");
-            System.out.println("2 - Entra come Venditore");
-            System.out.println("3 - Entra come Curatore");
-            System.out.println("Scelta: ");
-            int scelta = sc.nextInt();
+        // Creazione del Marketplace
+        Marketplace marketplace = new Marketplace();
 
-            if(scelta == 1) {
-                break; // da implementare l'acquirente
-            }
+        // Creazione del Curatore
+        Curatore curatore = new Curatore(1, "curatore123", "Luca", "Rossi", LocalDate.of(1980, 5, 10), "3331234567", "Via Roma 10", marketplace);
 
-            if(scelta == 2) {
-                System.out.println("Che tipo di Venditore sei?");
-                System.out.println("1 - Produttore");
-                System.out.println("2 - Trasformatore");
-                System.out.println("3 - Distributore Tipicità");
-                System.out.print("Scelta: ");
-                int tipoVenditore = sc.nextInt();
-                if(tipoVenditore == 1) {
-                    break; // da implementare produttore
-                }
-                else if (tipoVenditore == 2) {
-                    break; // da implementare il trasformatore
-                }
-                else if (tipoVenditore == 3) {
-                    break; //implentare distributore distributore tipicita
-                }
-                else System.out.println("Scelta non valida");
-            }
+        // Utilizzo dei Factory per creare i Venditori
+        ProduttoreFactory produttoreFactory = new ProduttoreFactory();
+        TrasformatoreFactory trasformatoreFactory = new TrasformatoreFactory();
+        DistributoreFactory distributoreFactory = new DistributoreFactory();
 
-            if(scelta == 3) {
-                Curatore curatore = Curatore.creaCuratore();
-                System.out.println("Username: " + curatore.getUsername());
-                System.out.println("Nome: " + curatore.getNome());
-                System.out.println("Cognome: " + curatore.getCognome());
-                System.out.println("Data di Nascita: " + curatore.getDataNascita());
-                System.out.println("Numero di Telefono: " + curatore.getNumeroTelefono());
-                System.out.println("Indirizzo: " + curatore.getIndirizzo());
+        // Creazione dei venditori
+        Produttore produttore = produttoreFactory.createVenditore(
+                2, "produttore1", "Giovanni", "Bianchi",
+                LocalDate.of(1985, 3, 20), "3339876543", "Via Milano 5"
+        );
 
-            }
-        }
+        Trasformatore trasformatore = trasformatoreFactory.createVenditore(
+                3, "trasformatore1", "Marco", "Verdi",
+                LocalDate.of(1980, 6, 15), "3331239999", "Via Napoli 20"
+        );
+
+        DistributoreTipicita distributore = distributoreFactory.createVenditore(
+                4, "distributore1", "Sara", "Neri",
+                LocalDate.of(1990, 7, 25), "3338887777", "Via Torino 30"
+        );
+        Prodotto latte = produttore.creaProdotto(101, "Latte Fresco", "Latte di alta qualità", 2.50,
+                Categoria.LATTE, 50, MetodoColtivazione.BIO, Certificazione.DOP);
+
+        Prodotto mele = produttore.creaProdotto(102, "Mele Rosse", "Mele fresche e succose", 1.50,
+                Categoria.FRUTTA, 100, MetodoColtivazione.INTEGRATO, Certificazione.IGP);
+
+        Prodotto carne = produttore.creaProdotto(103, "Bistecca", "Carne bovina di alta qualità", 12.00,
+                Categoria.CARNE, 20, MetodoColtivazione.CONVENZIONALE, Certificazione.STG);
+
+        Prodotto prodottoNonValido = produttore.creaProdotto(104, "", "Prodotto senza nome", 5.00,
+                Categoria.CEREALI, 0, MetodoColtivazione.CONVENZIONALE, Certificazione.IGP);
+
+
+
+
+
+
+
     }
-}*/
+}

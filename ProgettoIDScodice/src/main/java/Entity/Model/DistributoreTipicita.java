@@ -27,10 +27,16 @@ public class DistributoreTipicita extends Venditore {
     }
 
     public void aggiungiProdottoAlPacchetto(Pacchetto pacchetto, Prodotto prodotto) {
-        if (!prodottiCaricati.contains(prodotto)) {
-            System.out.println("Errore: Il prodotto " + prodotto.getNome() + " non è stato caricato dal distributore.");
+        if (pacchetto.isCompletato()) {
+            System.out.println("Errore: Il pacchetto " + pacchetto.getNome() + " è completato e non può essere modificato.");
             return;
         }
+
+        if (!prodottiCaricati.contains(prodotto)) {
+            System.out.println("Errore: Il prodotto " + prodotto.getNome() + " non è stato caricato nel distributore.");
+            return;
+        }
+
         pacchetto.getProdotti().add(prodotto);
         prodottiCaricati.remove(prodotto);
         System.out.println("Prodotto " + prodotto.getNome() + " aggiunto al pacchetto " + pacchetto.getNome());

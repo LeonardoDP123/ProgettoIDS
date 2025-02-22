@@ -1,17 +1,19 @@
 package Entity.Model;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Trasformatore extends Venditore {
     private Map<Categoria, StrategiaTrasformazione> strategieTrasformazione;
-    private List<Prodotto> prodottiCaricati; //lista dei prodotti inviati dal produttore
+    private List<Prodotto> prodottiCaricati;
 
     public Trasformatore(int ID, String username, String nome, String cognome, LocalDate dataDiNascita,
                          String numeroDiTelefono, String indirizzo) {
         super(ID, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo, Ruolo.TRASFORMATORE);
         this.prodottiCaricati = new ArrayList<>();
-
         this.strategieTrasformazione = new HashMap<>();
         this.strategieTrasformazione.put(Categoria.LATTE, new TrasformaLatteInFormaggio());
         this.strategieTrasformazione.put(Categoria.FRUTTA, new TrasformaFruttaInSucco());
@@ -23,35 +25,41 @@ public class Trasformatore extends Venditore {
 
     public void riceviProdotto(Prodotto prodotto) {
         prodottiCaricati.add(prodotto);
-        System.out.println("Prodotto ricevuto: " + prodotto.getNome());
+        System.out.println(" Prodotto ricevuto per trasformazione: " + prodotto.getNome());
     }
 
     public Prodotto trasformaProdotto(int prodottoID, double nuovoPrezzo) {
         Prodotto prodottoBase = trovaProdotto(prodottoID);
         if (prodottoBase == null) {
-            System.out.println("Errore: Il prodotto non esiste o non è stato ricevuto.");
+            System.out.println(" Errore: Il prodotto con ID " + prodottoID + " non esiste o non è stato ricevuto.");
             return null;
         }
 
         StrategiaTrasformazione strategia = strategieTrasformazione.get(prodottoBase.getCategoria());
-
         if (strategia == null) {
-            System.out.println("Errore: Nessuna strategia disponibile per la categoria: " + prodottoBase.getCategoria());
+            System.out.println(" Errore: Nessuna strategia di trasformazione per la categoria " + prodottoBase.getCategoria());
             return null;
         }
 
         Prodotto prodottoTrasformato = strategia.trasforma(prodottoBase, nuovoPrezzo);
-
-        if (prodottoTrasformato == null) {
-            System.out.println("Errore durante la trasformazione.");
-            return null;
-        }
-
         prodottiCaricati.remove(prodottoBase);
         aggiungiArticolo(prodottoTrasformato);
-        System.out.println("Prodotto trasformato: " + prodottoTrasformato.getNome());
-
+        System.out.println(" Prodotto trasformato con successo: " + prodottoTrasformato.getNome());
         return prodottoTrasformato;
+    }
+
+    public void inviaArticoloAlCuratore(Curatore curatore) {
+        List<Articolo> articoliDaInviare = new ArrayList<>();
+        for (Articolo articolo : getArticoli()) {
+            if (articolo instanceof Prodotto && !articolo.isStato()) {
+                articoliDaInviare.add(articolo);
+            }
+        }
+        for (Articolo articolo : articoliDaInviare) {
+            curatore.aggiungiArticoloInAttesa(articolo);
+            rimuoviArticolo(articolo);
+            System.out.println(" Prodotto trasformato inviato al curatore: " + articolo.getNome());
+        }
     }
 
     private Prodotto trovaProdotto(int ID) {
@@ -59,21 +67,5 @@ public class Trasformatore extends Venditore {
             if (p.getID() == ID) return p;
         }
         return null;
-    }
-
-    public void mostraProdottiCaricati() {
-        if (prodottiCaricati.isEmpty()) {
-            System.out.println("Nessun prodotto caricato disponibile.");
-        } else {
-            prodottiCaricati.forEach(System.out::println);
-        }
-    }
-
-    public void mostraProdottiTrasformati() {
-        if (getArticoli().isEmpty()) {
-            System.out.println("Nessun prodotto trasformato disponibile.");
-        } else {
-            getArticoli().forEach(System.out::println);
-        }
     }
 }
