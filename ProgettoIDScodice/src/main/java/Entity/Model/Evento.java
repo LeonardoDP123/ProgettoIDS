@@ -3,11 +3,11 @@ package Entity.Model;
 import java.time.LocalDate;
 
 public abstract class Evento {
-    protected int ID;
-    protected String nome;
-    protected LocalDate data;
-    protected String luogo;
-    protected String descrizione;
+    private int ID;
+    private String nome;
+    private LocalDate data;
+    private String luogo;
+    private String descrizione;
 
     public Evento(int ID, String nome, LocalDate data, String luogo, String descrizione) {
         this.ID = ID;

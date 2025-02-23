@@ -18,11 +18,11 @@ public class VisitaGuidata extends Evento {
 	@Override
 	public String toString() {
 		return "VisitaGuidata{" +
-				"ID=" + ID +
-				", nome='" + nome + '\'' +
-				", data=" + data +
-				", luogo='" + luogo + '\'' +
-				", descrizione='" + descrizione + '\'' +
+				"ID=" + getID() +
+				", nome='" + getNome() + '\'' +
+				", data=" + getData() +
+				", luogo='" + getLuogo() + '\'' +
+				", descrizione='" + getDescrizione() + '\'' +
 				", guida='" + guida + '\'' +
 				", numeroPartecipanti=" + numeroPartecipanti +
 				'}';

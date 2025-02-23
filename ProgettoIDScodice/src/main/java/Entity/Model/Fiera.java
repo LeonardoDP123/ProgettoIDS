@@ -15,11 +15,11 @@ public class Fiera extends Evento {
 	@Override
 	public String toString() {
 		return "Fiera{" +
-				"ID=" + ID +
-				", nome='" + nome + '\'' +
-				", data=" + data +
-				", luogo='" + luogo + '\'' +
-				", descrizione='" + descrizione + '\'' +
+				"ID=" + getID() +
+				", nome='" + getNome() + '\'' +
+				", data=" + getData() +
+				", luogo='" + getLuogo() + '\'' +
+				", descrizione='" + getDescrizione() + '\'' +
 				", numeroEspositori=" + numeroEspositori +
 				'}';
 	}
