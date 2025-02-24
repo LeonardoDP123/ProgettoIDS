@@ -9,7 +9,7 @@ public class DatabaseConnection {
 
         try {
             Connection conn = DriverManager.getConnection(url, user, password);
-            System.out.println("Connesso al database MySQL!");
+            System.out.println("Connesso al database MySQL");
         } catch (Exception e) {
             e.printStackTrace();
         }

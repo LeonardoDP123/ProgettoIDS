@@ -4,11 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-
 public class DistributoreTipicita extends Venditore {
     private List<Prodotto> prodottiCaricati;
 
@@ -89,7 +84,6 @@ public class DistributoreTipicita extends Venditore {
     public void inviaArticoliAlCuratore(Curatore curatore) {
         super.inviaArticoliAlCuratore(curatore);
     }
-
 
     @Override
     public void rimuoviArticoloDaMarketplace(int ID) {
