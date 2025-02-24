@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 
-
 public class Main {
     public static void main(String[] args) {
 
@@ -16,28 +15,23 @@ public class Main {
         // Creazione del Curatore
         Curatore curatore = new Curatore(1, "curatore123", "Luca", "Rossi", LocalDate.of(1980, 5, 10), "3331234567", "Via Roma 10");
 
-        // Utilizzo dei Factory per creare i Venditori
-        ProduttoreFactory produttoreFactory = new ProduttoreFactory();
-        TrasformatoreFactory trasformatoreFactory = new TrasformatoreFactory();
-        DistributoreFactory distributoreFactory = new DistributoreFactory();
-
-        // Creazione dei venditori
-        Produttore produttore = produttoreFactory.createVenditore(
-                2, "produttore1", "Giovanni", "Bianchi",
+        // Creazione dei venditori tramite il Factory Method
+        Produttore produttore = (Produttore) Venditore.creaVenditore(
+                Ruolo.PRODUTTORE, 2, "produttore1", "Giovanni", "Bianchi",
                 LocalDate.of(1985, 3, 20), "3339876543", "Via Milano 5"
         );
 
-        Trasformatore trasformatore = trasformatoreFactory.createVenditore(
-                3, "trasformatore1", "Marco", "Verdi",
+        Trasformatore trasformatore = (Trasformatore) Venditore.creaVenditore(
+                Ruolo.TRASFORMATORE, 3, "trasformatore1", "Marco", "Verdi",
                 LocalDate.of(1980, 6, 15), "3331239999", "Via Napoli 20"
         );
 
-        DistributoreTipicita distributore = distributoreFactory.createVenditore(
-                4, "distributore1", "Sara", "Neri",
+        DistributoreTipicita distributore = (DistributoreTipicita) Venditore.creaVenditore(
+                Ruolo.DISTRIBUTORE_TIPICITA, 4, "distributore1", "Sara", "Neri",
                 LocalDate.of(1990, 7, 25), "3338887777", "Via Torino 30"
         );
 
-        Prodotto carne = produttore.creaProdotto(103, "Bistecca", "Carne bovina di alta qualità", 12.00,
+        Prodotto carne = produttore.creaProdotto(103, "Bistecca", "Carne bovina di alta qualità", 12.00,
                 Categoria.CARNE, 20, MetodoColtivazione.CONVENZIONALE, Certificazione.STG);
 
         Prodotto prodottoNonValido = produttore.creaProdotto(104, "", "Prodotto senza nome", 5.00,
@@ -46,7 +40,7 @@ public class Main {
         produttore.inviaArticoliAlCuratore(curatore);
         curatore.approvaArticoli();
 
-        Prodotto latte = produttore.creaProdotto(101, "Latte", "Latte di alta qualità", 2.50,
+        Prodotto latte = produttore.creaProdotto(101, "Latte", "Latte di alta qualità", 2.50,
                 Categoria.LATTE, 50, MetodoColtivazione.BIO, Certificazione.DOP);
 
         Prodotto mele = produttore.creaProdotto(102, "Mele", "Mele fresche e succose", 1.50,
@@ -55,7 +49,6 @@ public class Main {
         // Visualizza Marketplace
         System.out.println("\n--- Marketplace (dopo approvazione prodotti del produttore)");
         produttore.visualizzaArticoli();
-
 
         // Invio al Trasformatore e trasformazione
         produttore.inviaProdottoAlTrasformatore(trasformatore, 101); // Latte
@@ -71,10 +64,10 @@ public class Main {
         Prodotto pomodori = produttore.creaProdotto(106, "Pomodori", "Pomodori freschi biologici", 2.20,
                 Categoria.VERDURA, 80, MetodoColtivazione.BIO, Certificazione.DOP);
 
-        Prodotto pesce = produttore.creaProdotto(107, "Orata ", "Orata pescata nel Mediterraneo", 15.00,
+        Prodotto pesce = produttore.creaProdotto(107, "Orata", "Orata pescata nel Mediterraneo", 15.00,
                 Categoria.PESCE, 25, MetodoColtivazione.CONVENZIONALE, Certificazione.DOC);
 
-        Prodotto uva = produttore.creaProdotto(108, "Uva ", "Uva fresca", 15.00,
+        Prodotto uva = produttore.creaProdotto(108, "Uva", "Uva fresca", 15.00,
                 Categoria.FRUTTA, 25, MetodoColtivazione.BIO, Certificazione.IGP);
 
         // Il produttore invia i prodotti al distributore
@@ -83,15 +76,10 @@ public class Main {
         produttore.inviaProdottoAlDistribuore(distributore, 108);
 
         // Creazione del primo pacchetto e aggiunta dei prodotti
-
         Pacchetto pacchetto1 = distributore.creaPacchetto(201, "Pacchetto Mare e Terra", "Contiene pesce e verdure fresche", 10);
         distributore.aggiungiProdottoAlPacchetto(pacchetto1, pomodori);
         distributore.aggiungiProdottoAlPacchetto(pacchetto1, pesce);
         distributore.completaPacchetto(pacchetto1, 30.00);
-
-
-
-
 
         // Creazione del secondo pacchetto e aggiunta di un solo prodotto
         Pacchetto pacchetto2 = distributore.creaPacchetto(202, "Pacchetto Frutta", "Contiene frutta fresca", 5);
@@ -107,13 +95,11 @@ public class Main {
         Acquirente acquirente = new Acquirente(1, "acquirente1", "Mario", "Rossi", LocalDate.of(1990, 1, 1), "3334567890", "Via Milano 15");
 
         // Aggiungi articoli al carrello
-        acquirente.getCarrello().aggiungiArticolo(103, 20);  // Aggiungi 5 unità di carne (ID 103)
-        acquirente.getCarrello().aggiungiArticolo(201,9); // Aggiungi 3 unità di un pacchetto (ID 201)
+        acquirente.getCarrello().aggiungiArticolo(103, 20);
+        acquirente.getCarrello().aggiungiArticolo(201, 9);
 
         // Effettuare l'acquisto
         acquirente.acquistaCarrello(marketplace);
-
-
 
         // Visualizzare Marketplace dopo l'acquisto
         System.out.println("\n--- Marketplace (dopo l'acquisto):");
@@ -125,7 +111,7 @@ public class Main {
         System.out.println("\n--- Carrello dell'acquirente dopo l'acquisto:");
         acquirente.getCarrello().isEmpty();
 
-        //connessione db
+        // Connessione DB
         String url = "jdbc:mysql://localhost:3306/progetto_marketplace";
         String user = "root";
         String password = "RootPassword";

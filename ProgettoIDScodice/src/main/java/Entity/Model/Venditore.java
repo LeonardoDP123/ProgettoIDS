@@ -14,6 +14,21 @@ public abstract class Venditore extends UtenteGenerico {
 		this.articoli = new ArrayList<>();
 	}
 
+	// Factory Method per creare le istanze delle sottoclassi di Venditore
+	public static Venditore creaVenditore(Ruolo ruolo, int ID, String username, String nome, String cognome,
+										  LocalDate dataDiNascita, String numeroDiTelefono, String indirizzo) {
+		switch (ruolo) {
+			case PRODUTTORE:
+				return new Produttore(ID, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo);
+			case TRASFORMATORE:
+				return new Trasformatore(ID, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo);
+			case DISTRIBUTORE_TIPICITA:
+				return new DistributoreTipicita(ID, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo);
+			default:
+				throw new IllegalArgumentException("Ruolo non valido per un venditore.");
+		}
+	}
+
 	public void modificaArticolo(Articolo articolo, String nuovoNome, String nuovaDescrizione, double nuovoPrezzo, int nuovaQuantita) {
 		articolo.modificaArticolo(nuovoNome, nuovaDescrizione, nuovoPrezzo, nuovaQuantita);
 	}
