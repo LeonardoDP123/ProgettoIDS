@@ -25,7 +25,7 @@ public abstract class Venditore extends UtenteGenerico {
 			case DISTRIBUTORE_TIPICITA:
 				return new DistributoreTipicita(ID, username, nome, cognome, dataDiNascita, numeroDiTelefono, indirizzo);
 			default:
-				throw new IllegalArgumentException("Ruolo non valido per un venditore.");
+				throw new IllegalArgumentException("Ruolo non valido per un venditore");
 		}
 	}
 

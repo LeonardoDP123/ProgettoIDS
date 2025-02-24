@@ -47,7 +47,7 @@ public class Main {
                 Categoria.FRUTTA, 100, MetodoColtivazione.INTEGRATO, Certificazione.IGP);
 
         // Visualizza Marketplace
-        System.out.println("\n--- Marketplace (dopo approvazione prodotti del produttore)");
+        System.out.println("\n--- Marketplace (dopo approvazione prodotti del produttore.)");
         produttore.visualizzaArticoli();
 
         // Invio al Trasformatore e trasformazione

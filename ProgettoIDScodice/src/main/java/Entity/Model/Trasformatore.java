@@ -31,7 +31,7 @@ public class Trasformatore extends Venditore {
     public Prodotto trasformaProdotto(int prodottoID, double nuovoPrezzo) {
         Prodotto prodottoBase = trovaProdotto(prodottoID);
         if (prodottoBase == null) {
-            System.out.println("Errore: Il prodotto con ID " + prodottoID + " non esiste o non è stato ricevuto.");
+            System.out.println("Errore: Il prodotto con ID " + prodottoID + " non esiste o non è stato ricevuto");
             return null;
         }
 

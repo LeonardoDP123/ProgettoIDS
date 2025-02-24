@@ -28,7 +28,7 @@ public class Produttore extends Venditore {
 	public void inviaProdottoAlTrasformatore(Trasformatore trasformatore, int prodottoID) {
 		Prodotto prodotto = trovaProdotto(prodottoID);
 		if (prodotto == null) {
-			System.out.println("Errore: Il prodotto con ID " + prodottoID + " non appartiene al produttore.");
+			System.out.println("Errore: Il prodotto con ID " + prodottoID + " non appartiene al produttore");
 			return;
 		}
 		rimuoviArticolo(prodotto);

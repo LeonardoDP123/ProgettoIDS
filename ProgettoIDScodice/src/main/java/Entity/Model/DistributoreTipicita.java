@@ -76,7 +76,7 @@ public class DistributoreTipicita extends Venditore {
             }
         }
         if (!hasPacchetti) {
-            System.out.println("Nessun pacchetto disponibile.");
+            System.out.println("Nessun pacchetto disponibile");
         }
     }
 
