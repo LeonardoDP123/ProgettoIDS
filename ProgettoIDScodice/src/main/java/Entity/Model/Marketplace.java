@@ -13,11 +13,7 @@ public class Marketplace {
 
     public static Marketplace getInstance() {
         if (instance == null) {
-            synchronized (Marketplace.class) {
-                if (instance == null) {
-                    instance = new Marketplace();
-                }
-            }
+            instance = new Marketplace();
         }
         return instance;
     }
