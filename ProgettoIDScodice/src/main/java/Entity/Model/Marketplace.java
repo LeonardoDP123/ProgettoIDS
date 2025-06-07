@@ -1,62 +1,51 @@
 package Entity.Model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Marketplace {
-    private static volatile Marketplace instance;
-    private List<Articolo> articoli;
-
-    private Marketplace() {
-        articoli = new ArrayList<>();
-    }
-
+    private static Marketplace instance;
+    private Map<Integer, Articolo> articoliPubblicati = new HashMap<>();
+    private Marketplace() {}
     public static Marketplace getInstance() {
         if (instance == null) {
-            synchronized (Marketplace.class) {
-                if (instance == null) {
-                    instance = new Marketplace();
-                }
-            }
+            instance = new Marketplace();
         }
         return instance;
     }
 
-    public void aggiungiArticolo(Articolo articolo) {
-        if (!articoli.contains(articolo)) {
-            articoli.add(articolo);
-            System.out.println("Articolo aggiunto al marketplace: " + articolo.getNome());
-        } else {
-            System.out.println("Articolo già presente nel marketplace: " + articolo.getNome());
+    public String visualizzaArticoli() {
+        StringBuilder sb = new StringBuilder();
+        for (Articolo a : articoliPubblicati.values()) {
+            sb.append(a.toString()).append("\n");
         }
+        return sb.toString();
     }
 
-    public void rimuoviArticolo(Articolo articolo) {
-        if (articoli.remove(articolo)) {
-            System.out.println("Articolo rimosso dal marketplace: " + articolo.getNome());
-        } else {
-            System.out.println("Articolo non trovato nel marketplace: " + articolo.getNome());
-        }
-    }
-
-    public List<Articolo> getArticoli() {
-        return articoli;
-    }
-
-    public Articolo getArticoloByID(int ID) {
-        for (Articolo articolo : articoli) {
-            if (articolo.getID() == ID) {
-                return articolo;
+    public String visualizzaArticoliProduttori() {
+        StringBuilder sb = new StringBuilder();
+        for (Articolo a : articoliPubblicati.values()) {
+            if (a instanceof Prodotto) {
+                Prodotto p = (Prodotto) a;
+                if (p.isCategoriaPrimaria()) {
+                    sb.append(p.toString()).append("\n");
+                }
             }
         }
-        return null; // Articolo non trovato
+        return sb.toString();
     }
 
-    public void aggiornaQuantita(Articolo articolo, int nuovaQuantita) {
-        articolo.setQuantitaDisponibile(nuovaQuantita);
-        if (nuovaQuantita == 0) {
-            rimuoviArticolo(articolo); // Rimuove l'articolo se la quantità è 0
+
+    public String visualizzaArticoliTrasformatori() {
+        StringBuilder sb = new StringBuilder();
+        for (Articolo a : articoliPubblicati.values()) {
+            if (a instanceof Prodotto) {
+                Prodotto p = (Prodotto) a;
+                if (!p.isCategoriaPrimaria()) {
+                    sb.append(p.toString()).append("\n");
+                }
+            }
         }
+        return sb.toString();
     }
 
 }
