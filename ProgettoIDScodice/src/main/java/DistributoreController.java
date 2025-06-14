@@ -22,7 +22,7 @@ public class DistributoreController {
     }
 
     public void inviaAlCuratore(DistributoreTipicita distributore, int idPacchetto, Curatore curatore) {
-        distributore.getPacchettoById(idPacchetto);
+        distributore.getPacchettoById(idPacchetto); // controllo esistenza
         inviodistributoreservice.inviaAlCuratore(distributore, idPacchetto, curatore);
     }
 }

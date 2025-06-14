@@ -11,7 +11,7 @@ public class DistributoreTipicita extends Venditore {
     }
 
     public void aggiungiArticoloPerPacchetto(Prodotto prodotto) {
-        inventario.add(prodotto);
+        inventario.add(prodotto); // Riceve prodotto o trasformato
     }
 
     public List<Pacchetto> getPacchettiCreati() {
@@ -32,5 +32,4 @@ public class DistributoreTipicita extends Venditore {
         }
         throw new IllegalArgumentException("Pacchetto con ID " + id + " non trovato.");
     }
-
 }
