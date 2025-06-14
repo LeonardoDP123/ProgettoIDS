@@ -46,7 +46,7 @@ public class ProduttoreController {
         if (produttore == null || distributore == null) {
             throw new IllegalArgumentException("Produttore o distributore non validi.");
         }
-        produttore.getProdottoById(idProdotto); // controllo esistenza
+        produttore.getProdottoById(idProdotto);
         invioProduttoreService.inviaAlDistributore(produttore, idProdotto, distributore);
     }
 
@@ -54,7 +54,7 @@ public class ProduttoreController {
         if (produttore == null || trasformatore == null) {
             throw new IllegalArgumentException("Produttore o distributore non validi.");
         }
-        produttore.getProdottoById(idProdotto); // controllo esistenza
+        produttore.getProdottoById(idProdotto);
         invioProduttoreService.inviaAlTrasformatore(produttore, idProdotto, trasformatore);
     }
 }

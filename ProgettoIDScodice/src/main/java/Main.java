@@ -1,61 +1,87 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
-        // Setup
+        // Attori
         Produttore produttore = new Produttore("Mario");
         Trasformatore trasformatore = new Trasformatore("Luigi");
-        DistributoreTipicita distributore = new DistributoreTipicita("Peach");
+        DistributoreTipicita distributore = new DistributoreTipicita("TipicoBox");
         Curatore curatore = new Curatore();
-        Marketplace marketplace = Marketplace.getInstance();
+        Acquirente acquirente1 = new Acquirente("Giulia");
+        Acquirente acquirente2 = new Acquirente("Leonardo");
 
-        // Services e controller
-        CreazioneService creazioneService = new CreazioneService();
+        // Controller
         ProduttoreController produttoreController = new ProduttoreController();
         TrasformatoreController trasformatoreController = new TrasformatoreController();
         DistributoreController distributoreController = new DistributoreController();
+        AcquirenteController acquirenteController = new AcquirenteController();
 
-        // Creazione prodotti
-        Prodotto p1 = creazioneService.creaProdotto(produttore, 1, "Mela", 1.0, 10, "Mela rossa", Categoria.FRUTTA, MetodoColtivazione.BIO, Certificazione.IGP);
-        Prodotto p2 = creazioneService.creaProdotto(produttore, 2, "Latte", 1.5, 5, "Latte fresco", Categoria.LATTE, MetodoColtivazione.BIO, Certificazione.DOP);
-        Prodotto p3 = creazioneService.creaProdotto(produttore, 3, "Carne", 3.0, 2, "Carne bovina", Categoria.CARNE, MetodoColtivazione.INTEGRALE, Certificazione.STG);
+        // Service
+        AcquistoService acquistoService = new AcquistoService();
 
-        // Invia p1 a curatore
-        produttoreController.inviaAlCuratore(produttore, 1, curatore);
+        // 1. Il produttore crea miele, latte e pane
+        Prodotto miele = produttoreController.creaProdotto(produttore, 1, "Miele", 6.0, 1,
+                "Miele artigianale", Categoria.FRUTTA, MetodoColtivazione.BIO, Certificazione.IGP);
 
-        // Invia p2 al trasformatore
+        Prodotto latte = produttoreController.creaProdotto(produttore, 2, "Latte", 2.5, 1,
+                "Latte fresco", Categoria.LATTE, MetodoColtivazione.BIO, Certificazione.DOP);
+
+        Prodotto pane = produttoreController.creaProdotto(produttore, 3, "Pane", 2.5, 2,
+                "Pane fresco", Categoria.LATTE, MetodoColtivazione.BIO, Certificazione.DOP);
+
+        // 2. Latte → al trasformatore → trasformato in formaggio
         produttoreController.inviaAlTrasformatore(produttore, 2, trasformatore);
+        trasformatoreController.trasformaProdotto(trasformatore, trasformatore.getInventario().get(0));
+        Prodotto formaggio = trasformatore.getInventarioTrasformati().get(0);
 
-        // Invia p3 al distributore
-        produttoreController.inviaAlDistributore(produttore, 3, distributore);
+        // 3. Invia miele e formaggio al distributore
+        produttoreController.inviaAlDistributore(produttore, 1, distributore);
+        trasformatoreController.inviaAlDistributore(trasformatore, formaggio.getId(), distributore);
 
-        // Trasforma p2 (latte in formaggio)
-        Prodotto daTrasformare = trasformatore.getInventario().get(0);
-        trasformatoreController.trasformaProdotto(trasformatore, daTrasformare);
+        // 4. Crea pacchetto con miele + formaggio (quantità 1)
+        Pacchetto pacchetto = distributoreController.creaPacchetto(
+                distributore,
+                100,
+                "Box Tipico",
+                "Contiene miele e formaggio freschi",
+                1, 2
+        );
 
-        // Invia il prodotto trasformato al distributore
-        trasformatoreController.inviaAlDistributore(trasformatore, daTrasformare.getId(), distributore);
+        // 5. Invia pacchetto e pane al curatore e li approva
+        distributoreController.inviaAlCuratore(distributore, pacchetto.getId(), curatore);
+        curatore.approvaArticolo(pacchetto.getId());
 
-        // Crea pacchetto con i 2 prodotti ricevuti
-        List<Integer> ids = new ArrayList<>();
-        for (Prodotto p : distributore.getInventario()) {
-            ids.add(p.getId());
-        }
+        produttoreController.inviaAlCuratore(produttore, pane.getId(), curatore);
+        curatore.approvaArticolo(pane.getId());
 
-        Pacchetto pacchetto = distributoreController.creaPacchetto(distributore, 10, "Delizie Tipiche", "Mix tipico", ids);
+        // 6. Acquirenti aggiungono il pacchetto al carrello
+        acquistoService.aggiungiAlCarrello(acquirente1, pacchetto.getId(), 1);
+        acquistoService.aggiungiAlCarrello(acquirente2, pacchetto.getId(), 1);
 
-        // Invia pacchetto al curatore
-        distributoreController.inviaAlCuratore(distributore, 10, curatore);
+        // ✅ Acquirente1 aggiunge anche 1 pane al carrello
+        acquistoService.aggiungiAlCarrello(acquirente1, pane.getId(), 1);
 
-        // Approvazione articoli
-        curatore.approvaArticolo(1);   // mela
-        curatore.approvaArticolo(10);  // pacchetto
+        // 7. Stampa carrelli prima degli acquisti
+        System.out.println("\n📦 Carrello di " + acquirente1.getNome() + ":");
+        System.out.println(acquirente1.getCarrello());
 
-        // Mostra articoli pubblicati nel marketplace
-        System.out.println("Articoli approvati nel marketplace:");
-        for (Articolo a : marketplace.getArticoliInVendita()) {
-            System.out.println(a);
-        }
+        System.out.println("\n📦 Carrello di " + acquirente2.getNome() + ":");
+        System.out.println(acquirente2.getCarrello());
+
+        // 8. Acquirente 1 acquista pacchetto + pane
+        System.out.println("\n🛒 Acquirente 1 acquista:");
+        acquistoService.acquista(acquirente1);
+
+        // 9. Acquirente 2 prova ad acquistare il pacchetto (non più disponibile)
+        System.out.println("\n🛒 Acquirente 2 prova ad acquistare:");
+        acquistoService.acquista(acquirente2);
+
+        // 10. Stampa articoli rimasti nel marketplace
+        Utils.stampaArticoliInMarketplace();
+
+        // 11. Stampa carrelli finali
+        System.out.println("\n📦 Carrello di " + acquirente1.getNome() + ":");
+        System.out.println(acquirente1.getCarrello());
+
+        System.out.println("\n📦 Carrello di " + acquirente2.getNome() + ":");
+        System.out.println(acquirente2.getCarrello());
     }
 }

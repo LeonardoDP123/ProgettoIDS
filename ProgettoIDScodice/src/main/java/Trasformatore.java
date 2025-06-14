@@ -15,7 +15,7 @@ public class Trasformatore extends Venditore {
     }
 
     public void aggiungiArticoloDaTrasformare(Prodotto prodotto) {
-        inventario.add(prodotto); // inventario da trasformare
+        inventario.add(prodotto);
     }
 
     public void trasformaProdotto(Prodotto daTrasformare, StrategiaTrasformazione strategia) {
@@ -24,13 +24,12 @@ public class Trasformatore extends Venditore {
         inventarioTrasformati.add(trasformato);
     }
 
-    // Cerca tra i prodotti trasformati
     public Prodotto getProdottoTrasformatoById(int id) {
         for (Prodotto p : inventarioTrasformati) {
             if (p.getId() == id) {
                 return p;
             }
         }
-        throw new IllegalArgumentException("Prodotto trasformato con ID " + id + " non trovato.");
+        throw new IllegalArgumentException("Prodotto trasformato non trovato.");
     }
 }

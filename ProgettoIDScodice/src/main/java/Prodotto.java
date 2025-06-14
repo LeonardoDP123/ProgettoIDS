@@ -24,4 +24,24 @@ public class Prodotto extends Articolo {
     public void setCategoria(Categoria categoria) { this.categoria = categoria; }
     public void setMetodoColtivazione(MetodoColtivazione metodoColtivazione) { this.metodoColtivazione = metodoColtivazione; }
     public void setCertificazione(Certificazione certificazione) { this.certificazione = certificazione;}
+
+    @Override
+    public Articolo cloneArticoloConQuantita(int quantita) {
+        return new Prodotto(id, nome, prezzo, quantita, descrizione, categoria, metodoColtivazione, certificazione);
+    }
+
+    @Override
+    public String toString() {
+        return "Prodotto{" +
+                "id=" + getId() +
+                ", nome='" + getNome() + '\'' +
+                ", prezzo=" + getPrezzo() +
+                ", quantita=" + getQuantita() +
+                ", descrizione='" + getDescrizione() + '\'' +
+                ", categoria=" + getCategoria() +
+                ", metodoColtivazione=" + getMetodoColtivazione() +
+                ", certificazione=" + getCertificazione() +
+                '}';
+    }
+
 }

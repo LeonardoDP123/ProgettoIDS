@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.*;
 
 public class DistributoreController {
 
@@ -14,15 +14,23 @@ public class DistributoreController {
                                    int id,
                                    String nome,
                                    String descrizione,
-                                   List<Integer> idProdotti) {
-        if (idProdotti == null || idProdotti.size() < 2) {
-            throw new IllegalArgumentException("Un pacchetto deve contenere almeno 2 prodotti.");
+                                   int... idsProdotti) {
+
+        if (idsProdotti.length < 2) {
+            throw new IllegalArgumentException("Un pacchetto deve contenere almeno 2 prodotti diversi");
         }
-        return impacchettamentoService.creaPacchetto(distributore, id, nome, descrizione, idProdotti);
+
+        List<Integer> idList = new ArrayList<>();
+        for (int idProdotto : idsProdotti) {
+            idList.add(idProdotto);
+        }
+
+        return impacchettamentoService.creaPacchetto(distributore, id, nome, descrizione, idList);
     }
 
+
     public void inviaAlCuratore(DistributoreTipicita distributore, int idPacchetto, Curatore curatore) {
-        distributore.getPacchettoById(idPacchetto); // controllo esistenza
+        distributore.getPacchettoById(idPacchetto);
         inviodistributoreservice.inviaAlCuratore(distributore, idPacchetto, curatore);
     }
 }

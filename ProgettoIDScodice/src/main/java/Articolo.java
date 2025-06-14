@@ -20,5 +20,7 @@ public abstract class Articolo {
     public void setId(int id) { this.id = id; }
     public void setNome(String nome) { this.nome = nome; }
     public void setPrezzo(double prezzo) { this.prezzo = prezzo; }
-    public void setQuantita(int quantita) { this.quantita=quantita;}
+    public void setQuantita(int quantita) { this.quantita = quantita;}
+
+    public abstract Articolo cloneArticoloConQuantita(int quantita);
 }

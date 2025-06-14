@@ -21,7 +21,7 @@ public abstract class Venditore {
     public boolean aggiungiProdotto(Prodotto prodotto) {
         for (Prodotto p : inventario) {
             if (p.getId() == prodotto.getId()) {
-                return false; // già presente
+                return false;
             }
         }
         inventario.add(prodotto);
@@ -44,6 +44,6 @@ public abstract class Venditore {
                 return p;
             }
         }
-        throw new IllegalArgumentException("Prodotto con ID " + id + " non trovato nell'inventario.");
+        throw new IllegalArgumentException("Prodotto non trovato");
     }
 }

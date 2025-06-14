@@ -47,14 +47,37 @@ public class Utils {
     }
 
     public static void stampaArticoliInMarketplace() {
-        System.out.println("Articoli pubblicati nel Marketplace:");
+        System.out.println(" Articoli pubblicati nel Marketplace:");
         List<Articolo> articoli = Marketplace.getInstance().getArticoliInVendita();
+
         if (articoli.isEmpty()) {
             System.out.println("  (Vuoto)");
             return;
         }
+
         for (Articolo a : articoli) {
-            System.out.println("- ID: " + a.getId() + ", Nome: " + a.getNome());
+            if (a instanceof Prodotto p) {
+                System.out.println("- [Prodotto] ID: " + p.getId()
+                        + ", Nome: " + p.getNome()
+                        + ", Quantità: " + p.getQuantita()
+                        + ", Prezzo: €" + p.getPrezzo()
+                        + ", Categoria: " + p.getCategoria());
+            } else if (a instanceof Pacchetto pacchetto) {
+                System.out.println("- [Pacchetto] ID: " + pacchetto.getId()
+                        + ", Nome: " + pacchetto.getNome()
+                        + ", Quantità: " + pacchetto.getQuantita()
+                        + ", Prezzo: €" + pacchetto.getPrezzo()
+                        + ", Descrizione: " + pacchetto.getDescrizione()
+                        + ", Prodotti inclusi: " + pacchetto.getProdottiInclusi().size());
+            } else {
+                System.out.println("- [Altro] ID: " + a.getId()
+                        + ", Nome: " + a.getNome()
+                        + ", Quantità: " + a.getQuantita()
+                        + ", Prezzo: €" + a.getPrezzo());
+            }
         }
     }
+
+
+
 }

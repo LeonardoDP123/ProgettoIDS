@@ -21,6 +21,7 @@ public enum Categoria {
                 categoria == FRUTTA ||
                 categoria == CEREALI ||
                 categoria == LATTE ||
-                categoria ==CARNE;
+                categoria == CARNE;
     }
+
 }

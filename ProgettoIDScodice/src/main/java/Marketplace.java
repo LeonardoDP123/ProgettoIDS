@@ -23,4 +23,16 @@ public class Marketplace {
     public List<Articolo> getArticoliInVendita() {
         return articoliInVendita;
     }
+    public Articolo getArticoloById(int id) {
+        for (Articolo a : articoliInVendita) {
+            if (a.getId() == id) {
+                return a;
+            }
+        }
+        throw new IllegalArgumentException("Articolo non trovato");
+    }
+
+    public void rimuoviArticolo(Articolo articolo) {
+        articoliInVendita.remove(articolo);
+    }
 }

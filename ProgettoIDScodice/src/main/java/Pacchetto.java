@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class Pacchetto extends Articolo {
 
@@ -29,5 +31,10 @@ public class Pacchetto extends Articolo {
                 ", descrizione='" + descrizione + '\'' +
                 ", prodottiInclusi=" + prodottiInclusi +
                 '}';
+    }
+
+    @Override
+    public Articolo cloneArticoloConQuantita(int quantita) {
+        return new Pacchetto(id, nome, prezzo, 1, descrizione, new ArrayList<>(prodottiInclusi)); // qt pacchetto sempre 1
     }
 }

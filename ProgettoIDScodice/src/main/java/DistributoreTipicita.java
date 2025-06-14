@@ -11,12 +11,10 @@ public class DistributoreTipicita extends Venditore {
     }
 
     public void aggiungiArticoloPerPacchetto(Prodotto prodotto) {
-        inventario.add(prodotto); // Riceve prodotto o trasformato
+        inventario.add(prodotto);
     }
 
-    public List<Pacchetto> getPacchettiCreati() {
-        return pacchettiCreati;
-    }
+    public List<Pacchetto> getPacchettiCreati() {return pacchettiCreati;}
 
     public void aggiungiPacchettoCreato(Pacchetto pacchetto) {
         pacchettiCreati.add(pacchetto);
@@ -30,6 +28,7 @@ public class DistributoreTipicita extends Venditore {
         for (Pacchetto p : pacchettiCreati) {
             if (p.getId() == id) return p;
         }
-        throw new IllegalArgumentException("Pacchetto con ID " + id + " non trovato.");
+        throw new IllegalArgumentException("Pacchetto inesistente");
     }
+
 }

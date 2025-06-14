@@ -49,7 +49,7 @@ public class TrasformatoreController {
             throw new IllegalArgumentException("Trasformatore o distributore non validi.");
         }
 
-        trasformatore.getProdottoTrasformatoById(idProdotto); // controllo esistenza
+        trasformatore.getProdottoTrasformatoById(idProdotto);
         inviotrasformatoreservice.inviaAlDistributore(trasformatore, idProdotto, distributore);
     }
 }
