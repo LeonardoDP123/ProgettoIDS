@@ -78,6 +78,42 @@ public class Utils {
         }
     }
 
+    public static void stampaEventiDaApprovare(Curatore curatore) {
+        System.out.println("Eventi in attesa dal Curatore:");
+        List<Evento> eventi = curatore.getEventiDaApprovare();
+        if (eventi == null || eventi.isEmpty()) {
+            System.out.println("  (Vuoto)");
+            return;
+        }
+
+        for (Evento e : eventi) {
+            System.out.println("- ID: " + e.getId()
+                    + ", Nome: " + e.getNome()
+                    + ", Data: " + e.getData());
+        }
+    }
+
+
+    public static void stampaEventiInVetrina() {
+        System.out.println("\n--- VETRINA EVENTI LOCALI ---");
+        List<Evento> eventi = VetrinaEventiLocali.getInstance().getEventi();
+
+        if (eventi.isEmpty()) {
+            System.out.println("Nessun evento disponibile.");
+            return;
+        }
+
+        for (Evento e : eventi) {
+            System.out.println("🧾 " + e.getNome() + " (" + e.getData() + ")");
+        }
+    }
+
+
+
+
+
+
+
 
 
 }

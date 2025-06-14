@@ -1,4 +1,6 @@
-public class Acquirente {
+
+
+public class Acquirente implements EventoObserver {
     private String nome;
     private Carrello carrello;
 
@@ -14,4 +16,12 @@ public class Acquirente {
     public Carrello getCarrello() {
         return carrello;
     }
+
+
+    @Override
+    public void notifica(Evento evento) {
+        System.out.println(nome + ", nuovo evento disponibile! " + evento.getNome() + " in data " + evento.getData());
+    }
+
+
 }

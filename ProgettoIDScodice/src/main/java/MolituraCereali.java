@@ -5,7 +5,7 @@ public class MolituraCereali implements StrategiaTrasformazione {
                 originale.getId(),
                 "Farina di " + originale.getNome(),
                 originale.getPrezzo() * 1.8,
-                originale.getQuantita(), //
+                originale.getQuantita(),
                 "Farina ottenuta per molitura da: " + originale.getDescrizione(),
                 Categoria.FARINA,
                 originale.getMetodoColtivazione(),
