@@ -1,5 +1,3 @@
-
-
 public class Acquirente implements EventoObserver {
     private String nome;
     private Carrello carrello;

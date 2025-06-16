@@ -9,7 +9,7 @@ public class Evento {
 
     public Evento(String nome, String descrizione, String data, AnimatoreFiliera animatoreFiliera) {
         this.id = contatoreId++;
-        this.nome = nome;
+        this.nome = nome;   
         this.descrizione = descrizione;
         this.data = data;
         this.animatoreFiliera = animatoreFiliera;
