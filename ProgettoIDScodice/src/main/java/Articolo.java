@@ -1,4 +1,4 @@
-public abstract class Articolo {
+public abstract class Articolo implements CloneableArticolo {
     protected int id;
     protected String nome;
     protected double prezzo;
