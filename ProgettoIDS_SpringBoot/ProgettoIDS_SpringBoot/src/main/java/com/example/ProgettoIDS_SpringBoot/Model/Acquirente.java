@@ -36,6 +36,7 @@ public class Acquirente implements EventoObserver {
         this.carrello = carrello;
     }
 
+
     @Override
     public void notifica(Evento evento) {
         System.out.println("📢 Notifica a " + nome + ": nuovo evento disponibile - " + evento.getNome());

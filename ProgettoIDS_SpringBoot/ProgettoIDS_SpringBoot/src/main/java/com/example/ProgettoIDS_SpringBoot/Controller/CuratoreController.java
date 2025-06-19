@@ -49,6 +49,13 @@ public class CuratoreController {
         return curatoreService.getEventiDaApprovare();
     }
 
+    @PostMapping("/approva-tutti")
+    public String approvaTutti() {
+        curatoreService.approvaTuttiGliArticoli();
+        return "Tutti gli articoli sono stati approvati.";
+    }
+
+
 
 
 

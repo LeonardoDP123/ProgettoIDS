@@ -49,6 +49,14 @@ public class CuratoreService {
         articoliDaApprovare.remove(daApprovare);
     }
 
+    public void approvaTuttiGliArticoli() {
+        List<Articolo> copiaArticoli = new ArrayList<>(articoliDaApprovare);
+        for (Articolo articolo : copiaArticoli) {
+            approvaArticolo(articolo.getId());
+        }
+    }
+
+
     public List<Articolo> getArticoliDaApprovare() {
         return articoliDaApprovare;
     }

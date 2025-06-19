@@ -76,5 +76,15 @@ public class AcquirenteController {
         return nome + " registrato per ricevere notifiche sugli eventi.";
     }
 
+    @DeleteMapping("/{nome}/rimuovi-dal-carrello")
+    public String rimuoviDalCarrello(@PathVariable String nome,
+                                     @RequestParam int idArticolo,
+                                     @RequestParam int quantita) {
+        Acquirente acquirente = acquirenteService.getAcquirente(nome);
+        acquirente.getCarrello().rimuoviArticoloConQuantita(idArticolo, quantita);
+        return "Articolo rimosso dal carrello con successo.";
+    }
+
+
 }
 
